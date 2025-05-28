@@ -281,6 +281,24 @@ class TrackierSDKInstance {
         }
     }
     
+    @available(iOS 13.0, *)
+    public func createDynamicLink(dynamicLink: DynamicLink) async -> DynamicLinkResponse {
+        let config = dynamicLink.toDynamicLinkConfig(installId: installId, appKey: appToken)
+        do {
+            let response = try await APIService.postAsyncDynamicLink(
+                uri: Constants.BASE_URL_DYNAMIC_LINK + "generation",
+                body: config.toDictionary(),
+                headers: [
+                    "X-Client-SDK": Constants.SDK_VERSION,
+                    "User-Agent": Constants.USER_AGENT
+                ]
+            )
+            return response
+        } catch {
+            return DynamicLinkResponse(success: false, message: error.localizedDescription, error: nil, data: nil)
+        }
+    }
+    
 //    Send install for Skan
     
     

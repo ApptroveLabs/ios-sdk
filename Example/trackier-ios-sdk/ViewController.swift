@@ -14,12 +14,45 @@ class ViewController: UIViewController {
         category: "SKANTesting"
     )
     
+    // MARK: - Dynamic Link UI (Programmatic)
+    private let dynamicLinkResultLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Result will appear here"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let dynamicLinkButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Create Dynamic Link", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupUserTracking()
         setupRevenueTrackingExamples()
         setupSKANTests()
+        // Add dynamic link UI
+        view.addSubview(dynamicLinkButton)
+        view.addSubview(dynamicLinkResultLabel)
+        NSLayoutConstraint.activate([
+            dynamicLinkButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            dynamicLinkButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -40),
+            dynamicLinkButton.heightAnchor.constraint(equalToConstant: 50),
+            dynamicLinkButton.widthAnchor.constraint(equalToConstant: 220),
+            dynamicLinkResultLabel.topAnchor.constraint(equalTo: dynamicLinkButton.bottomAnchor, constant: 24),
+            dynamicLinkResultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            dynamicLinkResultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        ])
+        dynamicLinkButton.addTarget(self, action: #selector(didTapCreateDynamicLink), for: .touchUpInside)
     }
     
     // MARK: - User Tracking
@@ -150,6 +183,62 @@ class ViewController: UIViewController {
     @available(iOS 16.1, *)
     @IBAction func didTapTestPostback(_ sender: UIButton) {
         testPostbackSimulation()
+    }
+    
+    @objc private func didTapCreateDynamicLink() {
+        dynamicLinkResultLabel.text = "Generating..."
+        let dynamicLink = DynamicLink.Builder()
+            .setTemplateId("PQBdiM")
+            .setLink("https://trackier58.u9ilnk.me?dlv=product")
+            .setDomainUriPrefix("trackier58.u9ilnk.me")
+            .setDeepLinkValue("productios")
+            .setAndroidParameters(
+                AndroidParameters.Builder()
+                    .setRedirectLink("https://play.google.com/store/apps/details?id=com.trackier.vistmarket")
+                    .build()
+            )
+            .setSDKParameters(["param1": "value1", "param2": "value2"])
+            .setAttributionParameters(
+                channel: "my_channel",
+                campaign: "my_campaign",
+                mediaSource: "at_invite",
+                p1: "param1_value",
+                p2: "dfjsdfsdf",
+                p3: "sdfsdfsdf"
+            )
+            .setIosParameters(
+                IosParameters.Builder()
+                    .setRedirectLink("https://apps.apple.com/us/app/naughts-n-crosses/id1560127886")
+                    .build()
+            )
+            .setDesktopParameters(
+                DesktopParameters.Builder()
+                    .setRedirectLink("https://www.vistmarket.com")
+                    .build()
+            )
+            .setSocialMetaTagParameters(
+                SocialMetaTagParameters.Builder()
+                    .setTitle("New Offer Buy 1 Get 2 Free")
+                    .setDescription("New Deal is live now just Open Vist market and purchase any product and get 2 product free")
+                    .setImageLink("https://storage.googleapis.com/static.trackier.io/images/test-data/downloaded_images/bluetooth_speaker.jpg")
+                    .build()
+            )
+            .build()
+        if #available(iOS 13.0, *) {
+            TrackierSDK.createDynamicLink(dynamicLink: dynamicLink, onSuccess: { [weak self] link in
+                DispatchQueue.main.async {
+                    self?.dynamicLinkResultLabel.text = "Dynamic Link: \(link)"
+                }
+                print("Dynamic Link: \(link)")
+            }, onFailure: { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.dynamicLinkResultLabel.text = "Failed: \(error)"
+                }
+                print("Failed to create dynamic link: \(error)")
+            })
+        } else {
+            dynamicLinkResultLabel.text = "iOS 13+ required"
+        }
     }
 }
 

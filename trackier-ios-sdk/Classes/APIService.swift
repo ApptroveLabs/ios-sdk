@@ -144,6 +144,11 @@ enum JSONValue: Codable {
    }
 }
 
+enum APIServiceError: Error {
+    case httpError(data: Data, statusCode: Int)
+    case other(Error)
+}
+
 class APIService {
     var sessionManager = Session()          // Create a session manager 
     static var shared = APIService()
@@ -162,15 +167,16 @@ class APIService {
     private func requestAsync(uri: String, method: HTTPMethod, body: [String : Any], headers: HTTPHeaders?) async throws -> Data {
         try await withUnsafeThrowingContinuation { continuation in
             AF.request(uri, method: method, parameters: body, encoding: JSONEncoding.default, headers: headers).validate().responseData { response in
-                if let data = response.value {
+                switch response.result {
+                case .success(let data):
                     continuation.resume(returning: data)
-                    return
+                case .failure(let error):
+                    if let data = response.data, let statusCode = response.response?.statusCode {
+                        continuation.resume(throwing: APIServiceError.httpError(data: data, statusCode: statusCode))
+                    } else {
+                        continuation.resume(throwing: error)
+                    }
                 }
-                if let err = response.error {
-                    continuation.resume(throwing: err)
-                    return
-                }
-                fatalError("unhandled request edge case")
             }
         }
     }
@@ -206,4 +212,23 @@ class APIService {
     static func postAsyncDeeplink(uri: String, body: [String : Any], headers: HTTPHeaders?) async throws -> InstallResponse {
         return try await shared.requestAsyncDeeplink(uri: uri, method: HTTPMethod.post, body: body, headers: headers)
     }
+
+    @available(iOS 13.0, *)
+    static func postAsyncDynamicLink(uri: String, body: [String : Any], headers: HTTPHeaders?) async throws -> DynamicLinkResponse {
+        do {
+            let data = try await shared.requestAsync(uri: uri, method: HTTPMethod.post, body: body, headers: headers)
+            let decoder = JSONDecoder()
+            return try decoder.decode(DynamicLinkResponse.self, from: data)
+        } catch APIServiceError.httpError(let data, _) {
+            let decoder = JSONDecoder()
+            if let backendError = try? decoder.decode(DynamicLinkResponse.self, from: data) {
+                return backendError
+            }
+            return DynamicLinkResponse(success: false, message: "Unknown backend error", error: nil, data: nil)
+        } catch {
+            return DynamicLinkResponse(success: false, message: error.localizedDescription, error: nil, data: nil)
+        }
+    }
+    
+    
 }

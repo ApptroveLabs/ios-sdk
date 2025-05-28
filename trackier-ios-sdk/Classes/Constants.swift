@@ -49,4 +49,6 @@ class Constants {
     static let SHARED_PREF_DLV = "dlv"
     static let SHARED_PREF_PID = "pid"
     static let SHARED_PREF_ISRETARGETING = "isRetargeting"
+
+    static let BASE_URL_DYNAMIC_LINK = "https://sdkr.apptracking.io/api/v4/ug/dlg/"
 }

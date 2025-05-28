@@ -20,17 +20,6 @@ public class TrackierSDKConfig {
         public private(set) var skanRegisterForAttribution: Bool = true
         public private(set) var debugMode: Bool = false
     
-    
-    // SKAN Properties
-    public private(set) var skanAid: String?
-    public private(set) var skanBaseURL: String = "https://apptrovesn.com/api/v2"
-    public private(set) var skanApiKey: String = ""
-    public private(set) var skanMinimumRevenueDelta: Double = 1.0
-    public private(set) var skanMaximumUpdateFrequency: TimeInterval = 3600
-    public private(set) var skanAutomaticSessionTracking: Bool = true
-    public private(set) var skanRegisterForAttribution: Bool = true
-    public private(set) var debugMode: Bool = false
-    
     var appToken: String
     var env: String
     var secretId: String = ""
@@ -93,51 +82,9 @@ public class TrackierSDKConfig {
     
     // MARK: - SKAN Configuration Methods
     
-<<<<<<< HEAD
-    public func setSKANAid(_ aid: String) -> Self {
-        self.skanAid = aid
-        return self
-    }
-    
-    public func setSKANBaseURL(_ url: String) -> Self {
-        self.skanBaseURL = url
-        return self
-    }
-    
-    public func setSKANApiKey(_ apiKey: String) -> Self {
-        self.skanApiKey = apiKey
-        return self
-    }
-    
-    public func setSKANMinimumRevenueDelta(_ delta: Double) -> Self {
-        self.skanMinimumRevenueDelta = delta
-        return self
-    }
-    
-    public func setSKANMaximumUpdateFrequency(_ frequency: TimeInterval) -> Self {
-        self.skanMaximumUpdateFrequency = frequency
-        return self
-    }
-    
-    public func setSKANAutomaticSessionTracking(_ enabled: Bool) -> Self {
-        self.skanAutomaticSessionTracking = enabled
-        return self
-    }
-    
-    public func setSKANRegisterForAttribution(_ register: Bool) -> Self {
-        self.skanRegisterForAttribution = register
-        return self
-    }
-    
-    public func setDebugMode(_ enabled: Bool) -> Self {
-        self.debugMode = enabled
-        return self
-    }
-=======
     public func setSKANMinimumRevenueDelta(_ delta: Double) -> Self { self.skanMinimumRevenueDelta = delta; return self }
         public func setSKANMaximumUpdateFrequency(_ frequency: TimeInterval) -> Self { self.skanMaximumUpdateFrequency = frequency; return self }
         public func setSKANAutomaticSessionTracking(_ enabled: Bool) -> Self { self.skanAutomaticSessionTracking = enabled; return self }
         public func setSKANRegisterForAttribution(_ register: Bool) -> Self { self.skanRegisterForAttribution = register; return self }
         public func setDebugMode(_ enabled: Bool) -> Self { self.debugMode = enabled; return self }
->>>>>>> cca9e48 (feat : fixed log issues)
 }
