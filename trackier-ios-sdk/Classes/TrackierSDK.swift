@@ -13,6 +13,7 @@ import Alamofire
 public class TrackierSDK {
     private var isInitialized = false
     private var instance = TrackierSDKInstance()
+    public static var config: TrackierSDKConfig!
     var appToken: String = ""
     
     static let shared = TrackierSDK()
@@ -27,6 +28,7 @@ public class TrackierSDK {
         shared.isInitialized = true
         Logger.info(message: "Trackier SDK \(Constants.SDK_VERSION) initialized")
         shared.appToken = config.appToken
+        self.config = config
         shared.instance.initialize(config: config)
     }
 

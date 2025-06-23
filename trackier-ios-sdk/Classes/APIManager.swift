@@ -17,30 +17,35 @@ class APIManager: NSObject {
     }
     
     static func doWork(workRequest: TrackierWorkRequest) {
+        let baseUrl: String
         switch workRequest.kind {
         case TrackierWorkRequest.KIND_INSTALL:
             let body = workRequest.getData()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending install request. Body is: \(jsonData)")
-            APIService.post(uri: Constants.INSTALL_URL, body: body, headers: headers)
+            baseUrl = getBaseUrl(for: Constants.INSTALL_URL)
+            APIService.post(uri: baseUrl, body: body, headers: headers)
             break;
         case TrackierWorkRequest.KIND_EVENT:
             let body = workRequest.getEventData()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending event request. Body is: \(jsonData)")
-            APIService.post(uri: Constants.EVENTS_URL, body: body, headers: headers)
+            baseUrl = getBaseUrl(for: Constants.EVENTS_URL)
+            APIService.post(uri: baseUrl, body: body, headers: headers)
             break;
         case TrackierWorkRequest.KIND_SESSION:
             let body = workRequest.getSessionData()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending session request. Body is: \(jsonData)")
-            APIService.post(uri: Constants.SESSIONS_URL, body: body, headers: headers)
+            baseUrl = getBaseUrl(for: Constants.SESSIONS_URL)
+            APIService.post(uri: baseUrl, body: body, headers: headers)
             break;
         case TrackierWorkRequest.KIND_Token:
             let body = workRequest.getDeviceToken()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending token request. Body is: \(jsonData)")
-            APIService.post(uri: Constants.TOKEN_URL, body: body, headers: headers)
+            baseUrl = getBaseUrl(for: Constants.TOKEN_URL)
+            APIService.post(uri: baseUrl, body: body, headers: headers)
             break;
         case TrackierWorkRequest.KIND_UNKNOWN:
             fallthrough
@@ -54,7 +59,8 @@ class APIManager: NSObject {
         let body = workRequest.getSessionData()
         let jsonData = Utils.convertDictToJSON(data: body)
         Logger.debug(message: "Sending session request. Body is: \(jsonData)")
-        return try await APIService.postAsync(uri: Constants.SESSIONS_URL, body:body, headers: headers)
+        let baseUrl = getBaseUrl(for: Constants.SESSIONS_URL)
+        return try await APIService.postAsync(uri: baseUrl, body:body, headers: headers)
     }
     
     @available(iOS 13.0, *)
@@ -62,7 +68,8 @@ class APIManager: NSObject {
         let body = workRequest.getData()
         let jsonData = Utils.convertDictToJSON(data: body)
         Logger.debug(message: "Sending install request. Body is: \(jsonData)")
-        return try await APIService.postAsync(uri: Constants.INSTALL_URL, body: body, headers: headers)
+        let baseUrl = getBaseUrl(for: Constants.INSTALL_URL)
+        return try await APIService.postAsync(uri: baseUrl, body: body, headers: headers)
     }
     
     @available(iOS 13.0, *)
@@ -70,7 +77,13 @@ class APIManager: NSObject {
         let body = workRequest.getDeeplinksData()
         let jsonData = Utils.convertDictToJSON(data: body)
         Logger.debug(message: "Sending deeplink request. Body is: \(jsonData)")
-        return try await APIService.postAsyncDeeplink(uri: Constants.DEEPLINK_URL, body: body, headers: headers)
+        let baseUrl = getBaseUrl(for: Constants.DEEPLINK_URL)
+        return try await APIService.postAsyncDeeplink(uri: baseUrl, body: body, headers: headers)
+    }
+    
+    static func getBaseUrl(for path: String) -> String {
+        let region = TrackierSDK.config.getRegion()
+        return region.isEmpty ? "\(Constants.SCHEME)\(path)" : "\(Constants.SCHEME)\(region)-\(path)"
     }
     
 }
