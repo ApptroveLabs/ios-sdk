@@ -214,6 +214,7 @@ class APIService {
                 }
                 if let err = response.error {
                     continuation.resume(throwing: err)
+                    print("trackiersdk",err)
                     return
                 }
                 fatalError("unhandled request edge case")

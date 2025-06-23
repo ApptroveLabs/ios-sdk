@@ -18,9 +18,10 @@ public class TrackierSDKConfig {
     var secretKey: String = ""
     var sdkt: String = "ios"
     var sdkVersion: String = Constants.SDK_VERSION
-
+    var region: Region = .IN
+    
     private var deeplinkListener: DeepLinkListener? = nil
-
+    
     public init(appToken: String, env: String) {
         self.appToken = appToken
         self.env = env
@@ -43,7 +44,7 @@ public class TrackierSDKConfig {
     func getAppSecretKey() -> String {
         return self.secretKey
     }
-
+    
     func setLogLevel(level: UInt) {
         Logger.setLogLevel(level: level)
     }
@@ -57,18 +58,31 @@ public class TrackierSDKConfig {
     }
     
     func getSDKVersion() -> String {
-       return self.sdkVersion
+        return self.sdkVersion
     }
     
     public func setSDKVersion(sdkVersion: String) {
         self.sdkVersion = sdkVersion
     }
-
+    
     public func setDeeplinkListerner(listener: DeepLinkListener) {
         self.deeplinkListener = listener
     }
-
+    
     public func getDeeplinkListerner() -> DeepLinkListener? {
         return self.deeplinkListener;
+    }
+    
+    public enum Region: String {
+        case IN = "in"
+        case GLOBAL = "global"
+    }
+    
+    public func setRegion(_ region: Region) {
+        self.region = region
+    }
+    
+    func getRegion() -> String {
+        return self.region.rawValue
     }
 }
