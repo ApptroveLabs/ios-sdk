@@ -281,24 +281,31 @@ class TrackierSDKInstance {
     }
     
     @available(iOS 13.0, *)
-        public func createDynamicLink(dynamicLink: DynamicLink) async -> DynamicLinkResponse {
-            let installid = getInstallID().lowercased()
-            let config = dynamicLink.toDynamicLinkConfig(installId: installid, appKey: appToken)
-            print("Dynamic Deeeplink body" , config.toDictionary())
-            do {
-                let response = try await APIService.postAsyncDynamicLink(
-                    uri: Constants.BASE_URL_DYNAMIC_LINK + "generation",
-                    body: config.toDictionary(),
-                    headers: [
-                        "X-Client-SDK": Constants.SDK_VERSION,
-                        "User-Agent": Constants.USER_AGENT
-                    ]
-                   
-                )
-                
-                return response
-            } catch {
-                return DynamicLinkResponse(success: false, message: error.localizedDescription, error: nil, data: nil)
-            }
+    public func createDynamicLink(dynamicLink: DynamicLink) async -> DynamicLinkResponse {
+        let region = TrackierSDK.config.getRegion()
+        let baseUrl: String
+        let installid = getInstallID().lowercased()
+        let config = dynamicLink.toDynamicLinkConfig(installId: installid, appKey: appToken)
+
+        print("Dynamic Deeplink body", config.toDictionary())
+            
+        baseUrl = region.isEmpty
+            ? "\(Constants.SCHEME)\(Constants.BASE_URL_DYNAMIC_LINK)"
+            : "\(Constants.SCHEME)\(region)-\(Constants.BASE_URL_DYNAMIC_LINK)"
+
+        do {
+            print("Dynamic Deeplink base URL:", baseUrl)
+            let response = try await APIService.postAsyncDynamicLink(
+                uri: baseUrl + "generation",
+                body: config.toDictionary(),
+                headers: [
+                    "X-Client-SDK": Constants.SDK_VERSION,
+                    "User-Agent": Constants.USER_AGENT
+                ]
+            )
+            return response
+        } catch {
+            return DynamicLinkResponse(success: false, message: error.localizedDescription, error: nil, data: nil)
         }
+    }
 }
