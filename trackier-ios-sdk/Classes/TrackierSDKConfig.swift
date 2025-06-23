@@ -18,7 +18,7 @@ public class TrackierSDKConfig {
     var secretKey: String = ""
     var sdkt: String = "ios"
     var sdkVersion: String = Constants.SDK_VERSION
-    var region: Region = .IN
+    var region: Region = .NONE
     
     private var deeplinkListener: DeepLinkListener? = nil
     
@@ -76,6 +76,7 @@ public class TrackierSDKConfig {
     public enum Region: String {
         case IN = "in"
         case GLOBAL = "global"
+        case NONE = ""
     }
     
     public func setRegion(_ region: Region) {
