@@ -233,15 +233,15 @@ class TrackierSDKInstance {
     }
     
     @available(iOS 13.0, *)
-    func deeplinkData(url: String) async throws -> InstallResponse? {
+    func deeplinkData(url: String?) async throws -> InstallResponse? {
         var deeplinRes: InstallResponse? = nil
         let wrkRequest = makeWorkRequest(kind: TrackierWorkRequest.KIND_Resolver)
-        wrkRequest.deeplinkUrl = url
-                do {
-                    deeplinRes = try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
-                } catch {
-                    //try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
-                }
+        wrkRequest.deeplinkUrl = url ?? ""  // Handle nil URL
+        do {
+            deeplinRes = try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
+        } catch {
+            Logger.error(message: "Failed to resolve deep link: \(error.localizedDescription)")
+        }
         return deeplinRes
     }
     
@@ -249,7 +249,9 @@ class TrackierSDKInstance {
         guard let dlt = config.getDeeplinkListerner() else { return }
         if let url = dlObj.data?.url{
             let resultDict: String = url 
-            let dlResult = DeepLink(result: resultDict)
+            // Pass SDK parameters from API response to DeepLink
+            let sdkParamsFromResponse = dlObj.data?.sdkParams
+            let dlResult = DeepLink(result: resultDict, sdkParamsFromResponse: sdkParamsFromResponse)
             dlt.onDeepLinking(result: dlResult)
         }
     }
@@ -264,17 +266,19 @@ class TrackierSDKInstance {
     
     @available(iOS 13.0, *)
     func parseDeepLink(uri: String?) {
-        guard let uri = uri else { return }
+        // Handle nil or empty URI - API supports this for deferred deep links
         var resData: InstallResponse?
         DispatchQueue.global().async {
             Task {
-                resData = try await self.deeplinkData(url: uri)
-                if self.isInitialized {
-                    do {
+                do {
+                    resData = try await self.deeplinkData(url: uri)
+                    if self.isInitialized {
                         if let resData = resData {
                             self.callDeepLinkListenerDynamic(dlObj: resData)
                         }
                     }
+                } catch {
+                    Logger.error(message: "Failed to parse deep link: \(error.localizedDescription)")
                 }
             }
         }

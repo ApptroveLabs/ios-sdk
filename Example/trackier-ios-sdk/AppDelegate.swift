@@ -17,6 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, DeepLinkListener {
     
     func onDeepLinking(result: DeepLink) -> Void {
         print("==result: \(result.getUrlParams()))")
+
+        print("[DEBUG] onDeepLinking called with result.getUrl(): \(result.getUrl())")
+
+        print("  SDK Params: \(result.getSDKParams())")
+
+        // New SDK parameter methods
+        print("  SDK Params Dictionary: \(result.getSDKParamsDictionary() ?? [:])")
+        print("  Specific SDK Param 'product_id': \(result.getSDKParam(key: "SdkKey"))")
+        print("  Specific SDK Param 'user_type': \(result.getSDKParam(key: "user_type"))")
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

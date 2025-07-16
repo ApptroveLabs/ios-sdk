@@ -12,11 +12,12 @@ public class DeepLink {
     //private var dictionaryData: [String: Any]
     private var deeplinkData: [String: String]
     private var url : String
+    private var sdkParamsFromResponse: [String: Any]?
     
     public init(result: String) {
-        //self.dictionaryData = result
         url = result
         self.deeplinkData = DeepLink.getQueryParams(uri: result)
+        self.sdkParamsFromResponse = nil
     }
     
 //    public func getDictData(key: String) -> String {
@@ -26,6 +27,13 @@ public class DeepLink {
 //        }
 //        return (dictData as? String)!
 //    }
+
+    // New initializer that accepts SDK parameters from API response
+    public init(result: String, sdkParamsFromResponse: [String: Any]?) {
+        url = result
+        self.deeplinkData = DeepLink.getQueryParams(uri: result)
+        self.sdkParamsFromResponse = sdkParamsFromResponse
+    }
     
     public func getUrl() -> String {
         return url
@@ -97,6 +105,75 @@ public class DeepLink {
     
     public func getSDKParams() -> String {
         return getMapStringVal(data: deeplinkData, key: "sdkParams")
+    }
+
+        // Updated method to get SDK parameters from both URL and response
+    public func getSDKParams() -> String {
+        // First try to get from URL parameters
+        let urlParams = getMapStringVal(data: deeplinkData, key: "sdkParams")
+        
+        // If URL has SDK params, return them
+        if !urlParams.isEmpty {
+            return urlParams
+        }
+        
+        // If no URL params, try to convert response params to string
+        if let responseParams = sdkParamsFromResponse {
+            return convertSDKParamsToString(responseParams)
+        }
+        
+        return ""
+    }
+    
+    // New method to get SDK parameters as dictionary (from response)
+    public func getSDKParamsDictionary() -> [String: Any]? {
+        return sdkParamsFromResponse
+    }
+    
+    // New method to get specific SDK parameter value
+    public func getSDKParam(key: String) -> String {
+        // First check URL parameters
+        let urlParams = getMapStringVal(data: deeplinkData, key: "sdkParams")
+        if !urlParams.isEmpty {
+            let params = parseSDKParamsString(urlParams)
+            return params[key] ?? ""
+        }
+        
+        // Then check response parameters
+        if let responseParams = sdkParamsFromResponse {
+            if let value = responseParams[key] {
+                return String(describing: value)
+            }
+        }
+        
+        return ""
+    }
+    
+    // Helper method to convert SDK params dictionary to string
+    private func convertSDKParamsToString(_ params: [String: Any]) -> String {
+        var paramStrings: [String] = []
+        
+        for (key, value) in params {
+            let stringValue = String(describing: value)
+            paramStrings.append("\(key)=\(stringValue)")
+        }
+        
+        return paramStrings.joined(separator: "&")
+    }
+    
+    // Helper method to parse SDK params string
+    private func parseSDKParamsString(_ sdkParams: String) -> [String: String] {
+        var params: [String: String] = [:]
+        let pairs = sdkParams.components(separatedBy: "&")
+        
+        for pair in pairs {
+            let keyValue = pair.components(separatedBy: "=")
+            if keyValue.count == 2 {
+                params[keyValue[0]] = keyValue[1]
+            }
+        }
+        
+        return params
     }
     
 //    static func parseDeeplinkData(res: InstallResponse) -> DeepLink {
