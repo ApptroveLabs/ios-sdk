@@ -131,7 +131,7 @@ public class DeepLink {
     }
     
     // New method to get specific SDK parameter value
-    public func getSDKParam(key: String) -> String {
+    public func getSDKParamValue(key: String) -> String {
         // First check URL parameters
         let urlParams = getMapStringVal(data: deeplinkData, key: "sdkParams")
         if !urlParams.isEmpty {
@@ -155,7 +155,9 @@ public class DeepLink {
         
         for (key, value) in params {
             let stringValue = String(describing: value)
-            paramStrings.append("\(key)=\(stringValue)")
+            if let encodedValue = stringValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                 paramStrings.append("\(key)=\(encodedValue)")
+            }
         }
         
         return paramStrings.joined(separator: "&")

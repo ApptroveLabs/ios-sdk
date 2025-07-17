@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, DeepLinkListener {
 
         // New SDK parameter methods
         print("  SDK Params Dictionary: \(result.getSDKParamsDictionary() ?? [:])")
-        print("  Specific SDK Param 'product_id': \(result.getSDKParam(key: "SdkKey"))")
-        print("  Specific SDK Param 'user_type': \(result.getSDKParam(key: "user_type"))")
+        print("  Specific SDK Param 'product_id': \(result.getSDKParamValue(key: "SdkKey"))")
+        print("  Specific SDK Param 'user_type': \(result.getSDKParamValue(key: "user_type"))")
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
