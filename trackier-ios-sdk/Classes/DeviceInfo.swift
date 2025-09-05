@@ -96,35 +96,74 @@ class DeviceInfo {
     }
     
     private func getAppInstallTime() -> String? {
-        // The bundle creation date is the closest equivalent
-        // This represents when the app bundle was first created (usually during installation)
-        let bundlePath = Bundle.main.bundlePath
-        do {
-            let attributes = try FileManager.default.attributesOfItem(atPath: bundlePath)
-            if let creationDate = attributes[.creationDate] as? Date {
-                return Utils.formatTime(date: creationDate)
+            // Use the document directory creation date as a proxy for install time
+            if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                do {
+                    let attributes = try FileManager.default.attributesOfItem(atPath: documentsURL.path)
+                    if let creationDate = attributes[.creationDate] as? Date {
+                        print("App install time retrieved from document directory: \(creationDate)")
+                        return Utils.formatTime(date: creationDate)
+                    } else {
+                        print("No creation date found for document directory")
+                    }
+                } catch {
+                    print("Failed to get document directory creation date: \(error)")
+                }
             }
-        } catch {
-            // Handle error silently
+            
+            // Fallback to bundle creation date
+            let bundlePath = Bundle.main.bundlePath
+            do {
+                let attributes = try FileManager.default.attributesOfItem(atPath: bundlePath)
+                if let creationDate = attributes[.creationDate] as? Date {
+                    print("App install time retrieved from bundle: \(creationDate)")
+                    return Utils.formatTime(date: creationDate)
+                } else {
+                    print("No creation date found for bundle")
+                }
+            } catch {
+                print("Failed to get bundle creation date: \(error)")
+            }
+            
+            // Final fallback: current time
+            print("Using current time as fallback for app install time")
+            return Utils.formatTime(date: Date())
         }
-        return nil
-    }
     
     private func getAppUpdateTime() -> String? {
-        // For iOS, we can't get the actual App Store update time
-        // The bundle modification date is the closest equivalent
-        // This represents when the app bundle was last modified (usually during installation/update)
-        let bundlePath = Bundle.main.bundlePath
-        do {
-            let attributes = try FileManager.default.attributesOfItem(atPath: bundlePath)
-            if let modificationDate = attributes[.modificationDate] as? Date {
-                return Utils.formatTime(date: modificationDate)
+            // Use the executable modification date as a proxy for update time
+            if let executablePath = Bundle.main.executablePath {
+                do {
+                    let attributes = try FileManager.default.attributesOfItem(atPath: executablePath)
+                    if let modificationDate = attributes[.modificationDate] as? Date {
+                        print("App update time retrieved from executable: \(modificationDate)")
+                        return Utils.formatTime(date: modificationDate)
+                    } else {
+                        print("No modification date found for executable")
+                    }
+                } catch {
+                    print("Failed to get executable modification date: \(error)")
+                }
             }
-        } catch {
-            // Handle error silently
+            
+            // Fallback to bundle modification date
+            let bundlePath = Bundle.main.bundlePath
+            do {
+                let attributes = try FileManager.default.attributesOfItem(atPath: bundlePath)
+                if let modificationDate = attributes[.modificationDate] as? Date {
+                    print("App update time retrieved from bundle: \(modificationDate)")
+                    return Utils.formatTime(date: modificationDate)
+                } else {
+                    print("No modification date found for bundle")
+                }
+            } catch {
+                print("Failed to get bundle modification date: \(error)")
+            }
+            
+            // Final fallback: current time
+            print("Using current time as fallback for app update time")
+            return Utils.formatTime(date: Date())
         }
-        return nil
-    }
     
     private func getBootTime() -> String? {
         // Get system boot time using sysctl
@@ -138,6 +177,8 @@ class DeviceInfo {
             let bootTime = Date(timeIntervalSince1970: TimeInterval(boottime.tv_sec) + TimeInterval(boottime.tv_usec) / 1_000_000.0)
             return Utils.formatTime(date: bootTime)
         }
-        return nil
+        // Fallback to current time if we can't get boot time
+        print("Failed to get boot time, using current time as fallback")
+        return Utils.formatTime(date: Date())
     }
 }
