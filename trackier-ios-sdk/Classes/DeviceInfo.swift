@@ -9,6 +9,10 @@
 import Foundation
 import AppTrackingTransparency
 import AdSupport
+import UIKit
+
+private let CTL_KERN: Int32 = 1
+private let KERN_BOOTTIME: Int32 = 21
 
 class DeviceInfo {
     
@@ -54,6 +58,9 @@ class DeviceInfo {
         dict["ibme"] = isBatteryMonitoringEnabled
         dict["idfv"] = idfv
         dict["idfa"] = getIDFA()
+        dict["appInstallTime"] = getAppInstallTime()
+        dict["appUpdateTime"] = getAppUpdateTime()
+        dict["bootTime"] = getBootTime()
         if (Locale.current.languageCode != nil) {
              dict["locale"] = Locale.current.languageCode!
         }       
@@ -86,5 +93,51 @@ class DeviceInfo {
             }
         }
         return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+    }
+    
+    private func getAppInstallTime() -> String? {
+        // The bundle creation date is the closest equivalent
+        // This represents when the app bundle was first created (usually during installation)
+        let bundlePath = Bundle.main.bundlePath
+        do {
+            let attributes = try FileManager.default.attributesOfItem(atPath: bundlePath)
+            if let creationDate = attributes[.creationDate] as? Date {
+                return Utils.formatTime(date: creationDate)
+            }
+        } catch {
+            // Handle error silently
+        }
+        return nil
+    }
+    
+    private func getAppUpdateTime() -> String? {
+        // For iOS, we can't get the actual App Store update time
+        // The bundle modification date is the closest equivalent
+        // This represents when the app bundle was last modified (usually during installation/update)
+        let bundlePath = Bundle.main.bundlePath
+        do {
+            let attributes = try FileManager.default.attributesOfItem(atPath: bundlePath)
+            if let modificationDate = attributes[.modificationDate] as? Date {
+                return Utils.formatTime(date: modificationDate)
+            }
+        } catch {
+            // Handle error silently
+        }
+        return nil
+    }
+    
+    private func getBootTime() -> String? {
+        // Get system boot time using sysctl
+        var boottime = timeval()
+        var mib: [Int32] = [CTL_KERN, KERN_BOOTTIME]
+        var size = MemoryLayout<timeval>.stride
+        
+        let result = sysctl(&mib, u_int(mib.count), &boottime, &size, nil, 0)
+        if result == 0 && size == MemoryLayout<timeval>.stride {
+            // Convert to Date and format consistently with SDK standards
+            let bootTime = Date(timeIntervalSince1970: TimeInterval(boottime.tv_sec) + TimeInterval(boottime.tv_usec) / 1_000_000.0)
+            return Utils.formatTime(date: bootTime)
+        }
+        return nil
     }
 }
