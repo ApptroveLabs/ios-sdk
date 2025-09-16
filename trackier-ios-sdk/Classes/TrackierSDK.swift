@@ -28,7 +28,7 @@ public class TrackierSDK {
         shared.isInitialized = true
         Logger.info(message: "Trackier SDK \(Constants.SDK_VERSION) initialized")
         shared.appToken = config.appToken
-        self.config = config
+        self.config = config    
         shared.instance.initialize(config: config)
     }
 
@@ -270,6 +270,15 @@ public class TrackierSDK {
             case .failure(let error):
                 completion(.failure(error))
             }
+        }
+    }
+    
+    @available(iOS 13.0.0, *)
+    public static func subscribeAttributionlink() {
+        do {
+            shared.instance.subscribeDeepLinkData()
+        } catch {
+            //try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
         }
     }
 }

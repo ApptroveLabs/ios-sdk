@@ -236,12 +236,18 @@ class TrackierSDKInstance {
     func deeplinkData(url: String) async throws -> InstallResponse? {
         var deeplinRes: InstallResponse? = nil
         let wrkRequest = makeWorkRequest(kind: TrackierWorkRequest.KIND_Resolver)
-        wrkRequest.deeplinkUrl = url
-                do {
-                    deeplinRes = try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
-                } catch {
-                    //try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
-                }
+//        wrkRequest.deeplinkUrl = url
+//                do {
+//                    deeplinRes = try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
+//                } catch {
+//                    //try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
+//                }
+        wrkRequest.deeplinkUrl = url ?? ""  // Handle nil URL
+               do {
+                   deeplinRes = try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
+               } catch {
+                   Logger.error(message: "Failed to resolve deep link: \(error.localizedDescription)")
+               }
         return deeplinRes
     }
     
@@ -249,7 +255,10 @@ class TrackierSDKInstance {
         guard let dlt = config.getDeeplinkListerner() else { return }
         if let url = dlObj.data?.url{
             let resultDict: String = url 
-            let dlResult = DeepLink(result: resultDict)
+           // let dlResult = DeepLink(result: resultDict)
+            // Pass SDK parameters from API response to DeepLink
+            let sdkParamsFromResponse = dlObj.data?.sdkParams
+            let dlResult = DeepLink(result: resultDict, sdkParamsFromResponse: sdkParamsFromResponse)
             dlt.onDeepLinking(result: dlResult)
         }
     }
@@ -270,10 +279,20 @@ class TrackierSDKInstance {
             Task {
                 resData = try await self.deeplinkData(url: uri)
                 if self.isInitialized {
+//                    do {
+//                        if let resData = resData {
+//                            self.callDeepLinkListenerDynamic(dlObj: resData)
+//                        }
+//                    }
                     do {
-                        if let resData = resData {
-                            self.callDeepLinkListenerDynamic(dlObj: resData)
+                        resData = try await self.deeplinkData(url: uri)
+                        if self.isInitialized {
+                            if let resData = resData {
+                                self.callDeepLinkListenerDynamic(dlObj: resData)
+                            }
                         }
+                    } catch {
+                        Logger.error(message: "Failed to parse deep link: \(error.localizedDescription)")
                     }
                 }
             }
@@ -301,11 +320,30 @@ class TrackierSDKInstance {
                     "X-Client-SDK": Constants.SDK_VERSION,
                     "User-Agent": Constants.USER_AGENT
                 ]
-               
             )
             return response
         } catch {
             return DynamicLinkResponse(success: false, message: error.localizedDescription, error: nil, data: nil)
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func subscribeDeepLinkData() {
+        var deeplinRes: InstallResponse? = nil
+        let wrkRequest = makeWorkRequest(kind: TrackierWorkRequest.KIND_Resolver)
+        DispatchQueue.global().async {
+            Task {
+                wrkRequest.deeplinkUrl = ""
+                do {
+                    deeplinRes = try await APIManager.doWorkSubscribeDeeplinkresolver(workRequest: wrkRequest)
+                    if self.isInitialized {
+                        self.callDeepLinkListenerDynamic(dlObj: deeplinRes!)
+                    }
+                } catch {
+                    //try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
+                }
+                
+            }
         }
     }
 }

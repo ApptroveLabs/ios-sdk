@@ -104,9 +104,19 @@ class TrackierWorkRequest {
         dict["osv"] = UIDevice.current.systemVersion
         dict["sdkv"] = Constants.SDK_VERSION
         dict["apv"] = DeviceInfo().buildInfo?["CFBundleShortVersionString"]
-        dict["insId"] = TrackierSDK.getTrackierId()
+        dict["insId"] = TrackierSDK.getTrackierId().lowercased()
         dict["appKey"] = appToken
         return dict
     }
     
+    func getDeeplinksSubscribeData() -> Dictionary<String, Any> {
+            var dict = Dictionary<String, Any>()
+            dict["os"] = "ios"
+            dict["osv"] = UIDevice.current.systemVersion
+            dict["sdkv"] = Constants.SDK_VERSION
+            dict["apv"] = DeviceInfo().buildInfo?["CFBundleShortVersionString"]
+            dict["insId"] = TrackierSDK.getTrackierId().lowercased()
+            dict["appKey"] = appToken
+            return dict
+        }
 }

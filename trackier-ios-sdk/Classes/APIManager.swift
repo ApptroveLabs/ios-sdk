@@ -86,4 +86,13 @@ class APIManager: NSObject {
         return region.isEmpty ? "\(Constants.SCHEME)\(path)" : "\(Constants.SCHEME)\(region)-\(path)"
     }
     
+    @available(iOS 13.0, *)
+        static func doWorkSubscribeDeeplinkresolver(workRequest: TrackierWorkRequest) async throws -> InstallResponse {
+            let body = workRequest.getDeeplinksSubscribeData()
+            let jsonData = Utils.convertDictToJSON(data: body)
+            Logger.debug(message: "Sending subscribe deeplink request. Body is: \(jsonData)")
+            let baseUrl = getBaseUrl(for: Constants.DEEPLINK_URL)
+            return try await APIService.postAsyncDeeplink(uri: baseUrl, body: body, headers: headers)
+        }
+    
 }
