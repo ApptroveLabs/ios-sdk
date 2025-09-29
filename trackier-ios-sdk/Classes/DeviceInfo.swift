@@ -112,21 +112,16 @@ class DeviceInfo {
     public func checkAndSendATTStatusChangeEvent() {
         let currentATTStatus = getATTStatus()
         let lastATTStatus = CacheManager.getString(key: Constants.SHARED_PREF_ATT_STATUS)
-        
-        Logger.debug(message: "Checking ATT status change. Current: \(currentATTStatus), Last: \(lastATTStatus)")
-        
+                
         // If the status has changed or no previous status exists, send the event
         if lastATTStatus != currentATTStatus || lastATTStatus.isEmpty {
             let event = TrackierEvent(id: "iatt_track")
-            event.param1 = currentATTStatus
-            Logger.debug(message: "ATT Status changed to: \(currentATTStatus). Sending event.")
-            
+            event.param1 = currentATTStatus            
             // Track the event immediately
             TrackierSDK.trackEvent(event: event)
             
             // Update the stored ATT status
             CacheManager.setString(key: Constants.SHARED_PREF_ATT_STATUS, value: currentATTStatus)
-            Logger.debug(message: "ATT Status stored: \(currentATTStatus)")
         } else {
             Logger.debug(message: "No change in ATT Status: \(currentATTStatus). No event sent.")
         }
