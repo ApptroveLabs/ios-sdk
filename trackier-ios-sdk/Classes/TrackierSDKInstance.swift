@@ -204,6 +204,10 @@ class TrackierSDKInstance {
         if (!isInstallTracked()) {
             return
         }
+        
+        // Check and send ATT status change event on every session
+        deviceInfo.checkAndSendATTStatusChangeEvent()
+        
         let wrk = makeWorkRequest(kind: TrackierWorkRequest.KIND_SESSION)
         wrk.customerId = customerId
         wrk.customerEmail = customerEmail
