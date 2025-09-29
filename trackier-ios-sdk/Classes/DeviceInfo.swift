@@ -95,6 +95,38 @@ class DeviceInfo {
         return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
     
+    public func getATTStatus() -> String {
+        if #available(iOS 14, *) {
+            switch ATTrackingManager.trackingAuthorizationStatus {
+            case .notDetermined: return "Not Determined"
+            case .denied: return "Denied"
+            case .authorized: return "Authorized"
+            case .restricted: return "Restricted"
+            @unknown default: return "Unknown"
+            }
+        } else {
+            return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? "Enabled" : "Disabled"
+        }
+    }
+    
+    public func checkAndSendATTStatusChangeEvent() {
+        let currentATTStatus = getATTStatus()
+        let lastATTStatus = CacheManager.getString(key: Constants.SHARED_PREF_ATT_STATUS)
+                
+        // If the status has changed or no previous status exists, send the event
+        if lastATTStatus != currentATTStatus || lastATTStatus.isEmpty {
+            let event = TrackierEvent(id: "iatt_track")
+            event.param1 = currentATTStatus            
+            // Track the event immediately
+            TrackierSDK.trackEvent(event: event)
+            
+            // Update the stored ATT status
+            CacheManager.setString(key: Constants.SHARED_PREF_ATT_STATUS, value: currentATTStatus)
+        } else {
+            Logger.debug(message: "No change in ATT Status: \(currentATTStatus). No event sent.")
+        }
+    }
+    
     private func getAppInstallTime() -> String? {
             // Use the document directory creation date as a proxy for install time
             if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {

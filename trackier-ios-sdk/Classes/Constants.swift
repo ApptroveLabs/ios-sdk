@@ -26,6 +26,8 @@ class Constants {
     static let SHARED_PREF_IS_INSTALL_TRACKED = "is_install_tracked"
     static let SHARED_PREF_INSTALL_ID = "install_id"
     static let SHARED_PREF_LAST_SESSION_TIME = "last_session_time"
+    static let SHARED_PREF_ATT_STATUS = "att_status" // Added for ATT status storage
+
 
     static let ENV_PRODUCTION = "production"
     static let ENV_DEVELOPMENT = "development"
