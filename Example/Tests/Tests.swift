@@ -1,5 +1,5 @@
 import XCTest
-import trackier_ios_sdk
+import apptrove_ios_sdk
 
 class Tests: XCTestCase {
 

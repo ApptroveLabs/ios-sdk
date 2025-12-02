@@ -1,6 +1,6 @@
 //
 //  Logger.swift
-//  trackier-ios-sdk
+//  apptrove-ios-sdk
 //
 //  Created by Hemant Mann on 23/03/21.
 //

@@ -1,17 +1,17 @@
 //
-//  TrackierSDKInstance.swift
-//  trackier-ios-sdk
+//  AppTroveSDKInstance.swift
+//  apptrove-ios-sdk
 //
-//  Created by Trackier on 18/03/21.
+//  Created by AppTrove on 18/03/21.
 //
 
 import Foundation
 import os
 import Alamofire
 
-class TrackierSDKInstance {
+class AppTroveSDKInstance {
     
-    var config = TrackierSDKConfig(appToken: "", env: "")
+    var config = AppTroveSDKConfig(appToken: "", env: "")
     var appToken: String = ""
     
     init() {}
@@ -39,7 +39,7 @@ class TrackierSDKInstance {
     /**
      * Initialize method should be called to initialize the sdk
      */
-    public func initialize(config: TrackierSDKConfig) {
+    public func initialize(config: AppTroveSDKConfig) {
         if self.isInitialized {
             return
         }
@@ -107,8 +107,8 @@ class TrackierSDKInstance {
         CacheManager.setInt(key: Constants.SHARED_PREF_LAST_SESSION_TIME, value: val)
     }
     
-    private func makeWorkRequest(kind: String) -> TrackierWorkRequest {
-        let wrk = TrackierWorkRequest(kind: kind, appToken: self.appToken, mode: self.config.env)
+    private func makeWorkRequest(kind: String) -> AppTroveWorkRequest {
+        let wrk = AppTroveWorkRequest(kind: kind, appToken: self.appToken, mode: self.config.env)
         if (self.config.getSDKType() != "ios") {
             deviceInfo.sdkVersion = self.config.getSDKVersion()
         }
@@ -125,7 +125,7 @@ class TrackierSDKInstance {
     //        if (isInstallTracked()) {
     //            return
     //        }
-    //        let wrk = makeWorkRequest(kind: TrackierWorkRequest.KIND_INSTALL)
+    //        let wrk = makeWorkRequest(kind: AppTroveWorkRequest.KIND_INSTALL)
     //        wrk.customerId = customerId
     //        wrk.customerEmail = customerEmail
     //        wrk.customerOptionals = customerOptionals
@@ -140,7 +140,7 @@ class TrackierSDKInstance {
         if (isInstallTracked()) {
             return
         }
-        let wrk = makeWorkRequest(kind: TrackierWorkRequest.KIND_INSTALL)
+        let wrk = makeWorkRequest(kind: AppTroveWorkRequest.KIND_INSTALL)
         wrk.customerId = customerId
         wrk.customerEmail = customerEmail
         wrk.customerOptionals = customerOptionals
@@ -165,7 +165,7 @@ class TrackierSDKInstance {
         setInstallTracked()
     }
     
-    func trackEvent(event: TrackierEvent) {
+    func trackEvent(event: AppTroveEvent) {
         if (!isEnabled) {
             Logger.warning(message: "SDK Not Enabled")
             return
@@ -177,7 +177,7 @@ class TrackierSDKInstance {
             Logger.warning(message: "Event sent before Install was tracked")
             return
         }
-        let wrk = makeWorkRequest(kind: TrackierWorkRequest.KIND_EVENT)
+        let wrk = makeWorkRequest(kind: AppTroveWorkRequest.KIND_EVENT)
         wrk.customerId = customerId
         wrk.customerEmail = customerEmail
         wrk.customerOptionals = customerOptionals
@@ -204,7 +204,7 @@ class TrackierSDKInstance {
         if (!isInstallTracked()) {
             return
         }
-        let wrk = makeWorkRequest(kind: TrackierWorkRequest.KIND_SESSION)
+        let wrk = makeWorkRequest(kind: AppTroveWorkRequest.KIND_SESSION)
         wrk.customerId = customerId
         wrk.customerEmail = customerEmail
         wrk.customerOptionals = customerOptionals
@@ -235,7 +235,7 @@ class TrackierSDKInstance {
     @available(iOS 13.0, *)
     func deeplinkData(url: String) async throws -> InstallResponse? {
         var deeplinRes: InstallResponse? = nil
-        let wrkRequest = makeWorkRequest(kind: TrackierWorkRequest.KIND_Resolver)
+        let wrkRequest = makeWorkRequest(kind: AppTroveWorkRequest.KIND_Resolver)
 //        wrkRequest.deeplinkUrl = url
 //                do {
 //                    deeplinRes = try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
@@ -264,7 +264,7 @@ class TrackierSDKInstance {
     }
     
     func deviceTokenApns() {
-        let wrk = makeWorkRequest(kind: TrackierWorkRequest.KIND_Token)
+        let wrk = makeWorkRequest(kind: AppTroveWorkRequest.KIND_Token)
         wrk.deviceToken = deviceToken
         DispatchQueue.global().async {
             APIManager.doWork(workRequest: wrk)
@@ -301,7 +301,7 @@ class TrackierSDKInstance {
     
     @available(iOS 13.0, *)
     public func createDynamicLink(dynamicLink: DynamicLink) async -> DynamicLinkResponse {
-        let region = TrackierSDK.config.getRegion()
+        let region = AppTroveSDK.config.getRegion()
         let baseUrl: String
         let installid = getInstallID().lowercased()
         let config = dynamicLink.toDynamicLinkConfig(installId: installid, appKey: appToken)
@@ -330,7 +330,7 @@ class TrackierSDKInstance {
     @available(iOS 13.0, *)
     func subscribeDeepLinkData() {
         var deeplinRes: InstallResponse? = nil
-        let wrkRequest = makeWorkRequest(kind: TrackierWorkRequest.KIND_Resolver)
+        let wrkRequest = makeWorkRequest(kind: AppTroveWorkRequest.KIND_Resolver)
         DispatchQueue.global().async {
             Task {
                 wrkRequest.deeplinkUrl = ""

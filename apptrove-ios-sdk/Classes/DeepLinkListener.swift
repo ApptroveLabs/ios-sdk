@@ -1,6 +1,6 @@
 //
 //  DeepLinkListener.swift
-//  trackier-ios-sdk
+//  apptrove-ios-sdk
 //
 //  Created by Sanu Gupta on 17/02/23.
 //

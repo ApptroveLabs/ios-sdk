@@ -1,6 +1,6 @@
 //
 //  CacheManager.swift
-//  trackier-ios-sdk
+//  apptrove-ios-sdk
 //
 //  Created by Hemant Mann on 19/03/21.
 //

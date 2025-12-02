@@ -1,13 +1,13 @@
 //
-//  TrackierEvent.swift
-//  trackier-ios-sdk
+//  AppTroveEvent.swift
+//  apptrove-ios-sdk
 //
 //  Created by Prakhar Srivastava on 18/03/21.
 //
 
 import Foundation
 
-public class TrackierEvent {
+public class AppTroveEvent {
 
     var id: String
     public init(id: String) {

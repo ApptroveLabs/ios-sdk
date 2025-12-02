@@ -3,7 +3,7 @@ use_frameworks!
 platform :ios, '11.0'
 
 target 'trackier-ios-sdk_Example' do
-  pod 'trackier-ios-sdk', :path => '../'
+  pod 'apptrove-ios-sdk', :path => '../'
 
   target 'trackier-ios-sdk_Tests' do
     inherit! :search_paths

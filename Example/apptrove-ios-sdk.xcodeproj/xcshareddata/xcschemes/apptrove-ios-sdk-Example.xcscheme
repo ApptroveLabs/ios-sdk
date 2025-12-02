@@ -17,7 +17,7 @@
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
                BuildableName = "trackier-ios-sdk_Example.app"
                BlueprintName = "trackier-ios-sdk_Example"
-               ReferencedContainer = "container:trackier-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
                BuildableName = "trackier-ios-sdk_Tests.xctest"
                BlueprintName = "trackier-ios-sdk_Tests"
-               ReferencedContainer = "container:trackier-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -58,7 +58,7 @@
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
                BuildableName = "trackier-ios-sdk_Tests.xctest"
                BlueprintName = "trackier-ios-sdk_Tests"
-               ReferencedContainer = "container:trackier-ios-sdk.xcodeproj">
+               ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

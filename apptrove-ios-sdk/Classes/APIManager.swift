@@ -1,6 +1,6 @@
 //
 //  APIManager.swift
-//  trackier-ios-sdk
+//  apptrove-ios-sdk
 //
 //  Created by Prakhar Srivastava on 19/03/21.
 //
@@ -16,38 +16,38 @@ class APIManager: NSObject {
     override init() {
     }
     
-    static func doWork(workRequest: TrackierWorkRequest) {
+    static func doWork(workRequest: AppTroveWorkRequest) {
         let baseUrl: String
         switch workRequest.kind {
-        case TrackierWorkRequest.KIND_INSTALL:
+        case AppTroveWorkRequest.KIND_INSTALL:
             let body = workRequest.getData()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending install request. Body is: \(jsonData)")
             baseUrl = getBaseUrl(for: Constants.INSTALL_URL)
             APIService.post(uri: baseUrl, body: body, headers: headers)
             break;
-        case TrackierWorkRequest.KIND_EVENT:
+        case AppTroveWorkRequest.KIND_EVENT:
             let body = workRequest.getEventData()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending event request. Body is: \(jsonData)")
             baseUrl = getBaseUrl(for: Constants.EVENTS_URL)
             APIService.post(uri: baseUrl, body: body, headers: headers)
             break;
-        case TrackierWorkRequest.KIND_SESSION:
+        case AppTroveWorkRequest.KIND_SESSION:
             let body = workRequest.getSessionData()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending session request. Body is: \(jsonData)")
             baseUrl = getBaseUrl(for: Constants.SESSIONS_URL)
             APIService.post(uri: baseUrl, body: body, headers: headers)
             break;
-        case TrackierWorkRequest.KIND_Token:
+        case AppTroveWorkRequest.KIND_Token:
             let body = workRequest.getDeviceToken()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending token request. Body is: \(jsonData)")
             baseUrl = getBaseUrl(for: Constants.TOKEN_URL)
             APIService.post(uri: baseUrl, body: body, headers: headers)
             break;
-        case TrackierWorkRequest.KIND_UNKNOWN:
+        case AppTroveWorkRequest.KIND_UNKNOWN:
             fallthrough
         default:
             break;
@@ -55,7 +55,7 @@ class APIManager: NSObject {
     }
     
     @available(iOS 13.0, *)
-    static func doWorkSession(workRequest: TrackierWorkRequest) async throws -> Data {
+    static func doWorkSession(workRequest: AppTroveWorkRequest) async throws -> Data {
         let body = workRequest.getSessionData()
         let jsonData = Utils.convertDictToJSON(data: body)
         Logger.debug(message: "Sending session request. Body is: \(jsonData)")
@@ -64,7 +64,7 @@ class APIManager: NSObject {
     }
     
     @available(iOS 13.0, *)
-    static func doWorkInstall(workRequest: TrackierWorkRequest) async throws -> Data {
+    static func doWorkInstall(workRequest: AppTroveWorkRequest) async throws -> Data {
         let body = workRequest.getData()
         let jsonData = Utils.convertDictToJSON(data: body)
         Logger.debug(message: "Sending install request. Body is: \(jsonData)")
@@ -73,7 +73,7 @@ class APIManager: NSObject {
     }
     
     @available(iOS 13.0, *)
-    static func doWorkDeeplinkresolver(workRequest: TrackierWorkRequest) async throws -> InstallResponse {
+    static func doWorkDeeplinkresolver(workRequest: AppTroveWorkRequest) async throws -> InstallResponse {
         let body = workRequest.getDeeplinksData()
         let jsonData = Utils.convertDictToJSON(data: body)
         Logger.debug(message: "Sending deeplink request. Body is: \(jsonData)")
@@ -82,12 +82,12 @@ class APIManager: NSObject {
     }
     
     static func getBaseUrl(for path: String) -> String {
-        let region = TrackierSDK.config.getRegion()
+        let region = AppTroveSDK.config.getRegion()
         return region.isEmpty ? "\(Constants.SCHEME)\(path)" : "\(Constants.SCHEME)\(region)-\(path)"
     }
     
     @available(iOS 13.0, *)
-        static func doWorkSubscribeDeeplinkresolver(workRequest: TrackierWorkRequest) async throws -> InstallResponse {
+        static func doWorkSubscribeDeeplinkresolver(workRequest: AppTroveWorkRequest) async throws -> InstallResponse {
             let body = workRequest.getDeeplinksSubscribeData()
             let jsonData = Utils.convertDictToJSON(data: body)
             Logger.debug(message: "Sending subscribe deeplink request. Body is: \(jsonData)")

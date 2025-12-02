@@ -1,13 +1,13 @@
 //
 //  AppDelegate.swift
-//  trackier-ios-sdk
+//  apptrove-ios-sdk
 //
-//  Created by Trackier on 03/18/2021.
-//  Copyright (c) 2021 Trackier. All rights reserved.
+//  Created by AppTrove on 03/18/2021.
+//  Copyright (c) 2021 AppTrove. All rights reserved.
 //
 
 import UIKit
-import trackier_ios_sdk
+import apptrove_ios_sdk
 import AppTrackingTransparency
 
 @UIApplicationMain
@@ -16,21 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, DeepLinkListener {
     var window: UIWindow?
     
     func onDeepLinking(result: DeepLink) -> Void {
-        print("==result: \(result.getUrlParams()))")
+        print("==result: \(result.getUrl())")
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        /*While Initializing the Sdk, You need to pass the two arguments in the TrackierSDKConfig.
-         * In First argument, you need to pass the Trackier SDK api key
+        /*While Initializing the Sdk, You need to pass the two arguments in the AppTroveSDKConfig.
+         * In First argument, you need to pass the AppTrove SDK api key
         * In second argument, you need to pass the environment which can be either "development", "production" or "testing". */
         
-        let config = TrackierSDKConfig(appToken: "xxxx-xx-xxx-xxx", env: TrackierSDKConfig.ENV_DEVELOPMENT) //Pass your Trackier sdk api key
+        let config = AppTroveSDKConfig(appToken: "xxxx-xx-xxx-xxx", env: AppTroveSDKConfig.ENV_DEVELOPMENT) //Pass your AppTrove sdk api key
         config.setDeeplinkListerner(listener: self)
-        //TrackierSDK.updatePostbackConversion(conversionValue: 0)
-        TrackierSDK.waitForATTUserAuthorization(timeoutInterval: 20)
-        TrackierSDK.initialize(config: config)
+        //AppTroveSDK.updatePostbackConversion(conversionValue: 0)
+        AppTroveSDK.waitForATTUserAuthorization(timeoutInterval: 20)
+        AppTroveSDK.initialize(config: config)
         return true
     }
 
@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, DeepLinkListener {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        TrackierSDK.trackSession()
+        AppTroveSDK.trackSession()
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization { status in
                 switch status {

@@ -1,6 +1,6 @@
 //
 //  APIService.swift
-//  trackier-ios-sdk
+//  apptrove-ios-sdk
 //
 //  Created by Hemant Mann on 19/03/21.
 //
@@ -214,7 +214,7 @@ class APIService {
                 }
                 if let err = response.error {
                     continuation.resume(throwing: err)
-                    print("trackiersdk",err)
+                    print("apptrovesdk",err)
                     return
                 }
                 fatalError("unhandled request edge case")

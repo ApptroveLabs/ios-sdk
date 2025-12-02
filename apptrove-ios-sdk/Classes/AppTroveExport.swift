@@ -1,51 +1,51 @@
 //
-//  TrackierExport.swift
-//  TrackierSDK
+//  AppTroveExport.swift
+//  AppTroveSDK
 //
 //  Created by Sanu Gupta on 20/10/22.
 //
 
 import Foundation
 
-@_cdecl("TrackierSDK_initialize")
+@_cdecl("AppTroveSDK_initialize")
 public func initialize(initParam: UnsafePointer<CChar>?)  {
     let initParam = String(cString: initParam!)
     let initData = try! JSONDecoder().decode(InitData.self, from: initParam.data(using: .utf8)!)
-    let sdkConfigs = TrackierSDKConfig.init(appToken: initData.appKey, env: initData.env)
+    let sdkConfigs = AppTroveSDKConfig.init(appToken: initData.appKey, env: initData.env)
     sdkConfigs.sdkt = initData.setSDKType
     sdkConfigs.sdkVersion = initData.setSDKVersion
     sdkConfigs.setSDKVersion(sdkVersion: "1.6.59")
-    TrackierSDK.initialize(config: sdkConfigs)
+    AppTroveSDK.initialize(config: sdkConfigs)
 }
 
-@_cdecl("TrackierSDK_setUserID")
+@_cdecl("AppTroveSDK_setUserID")
 public func setUserID(userID: UnsafePointer<CChar>?)  {
     let userId = String(cString: userID!)
-    TrackierSDK.setUserID(userId: userId)
+    AppTroveSDK.setUserID(userId: userId)
 }
 
-@_cdecl("TrackierSDK_setUserEmail")
+@_cdecl("AppTroveSDK_setUserEmail")
 public func setUserEmail(userEmail: UnsafePointer<CChar>?) {
     let userEmail = String(cString: userEmail!)
-    TrackierSDK.setUserEmail(userEmail: userEmail)
+    AppTroveSDK.setUserEmail(userEmail: userEmail)
 }
 
-@_cdecl("TrackierSDK_setUserPhone")
+@_cdecl("AppTroveSDK_setUserPhone")
 public func setUserPhone(userPhone: UnsafePointer<CChar>?) {
     let userPhone = String(cString: userPhone!)
-    TrackierSDK.setUserPhone(userPhone: userPhone)
+    AppTroveSDK.setUserPhone(userPhone: userPhone)
 }
 
-@_cdecl("TrackierSDK_setUserName")
+@_cdecl("AppTroveSDK_setUserName")
 public func setUserName(userName: UnsafePointer<CChar>?) {
     let userName = String(cString: userName!)
-    TrackierSDK.setUserName(userName: userName)
+    AppTroveSDK.setUserName(userName: userName)
 }
 
-@_cdecl("TrackierSDK_TrackEvent")
+@_cdecl("AppTroveSDK_TrackEvent")
 public func TrackEvent(eventId: UnsafePointer<CChar>?, eventParam: UnsafePointer<CChar>?) {
     let trackEvent = String(cString: eventId!)
-    let event = TrackierEvent(id: trackEvent)
+    let event = AppTroveEvent(id: trackEvent)
     let eventParamJson = String(cString: eventParam!)
     let eventsData = try! JSONDecoder().decode(EventsExtraParam.self, from: eventParamJson.data(using: .utf8)!)
     event.couponCode = eventsData.couponCode
@@ -63,7 +63,7 @@ public func TrackEvent(eventId: UnsafePointer<CChar>?, eventParam: UnsafePointer
     event.param8 = eventsData.param8
     event.param9 = eventsData.param9
     event.param10 = eventsData.param10
-    TrackierSDK.trackEvent(event: event)
+    AppTroveSDK.trackEvent(event: event)
 }
 
 struct EventsExtraParam: Decodable {

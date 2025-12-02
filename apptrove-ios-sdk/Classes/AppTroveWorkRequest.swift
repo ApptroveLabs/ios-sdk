@@ -1,13 +1,13 @@
 //
-//  TrackierWorkRequest.swift
-//  trackier-ios-sdk
+//  AppTroveWorkRequest.swift
+//  apptrove-ios-sdk
 //
 //  Created by Hemant Mann on 19/03/21.
 //
 
 import Foundation
 
-class TrackierWorkRequest {
+class AppTroveWorkRequest {
     static let KIND_INSTALL = "install"
     static let KIND_EVENT = "event"
     static let KIND_SESSION = "session"
@@ -18,7 +18,7 @@ class TrackierWorkRequest {
     var kind: String
     var installId: String = ""
     var installTime: String = ""
-    var eventObj = TrackierEvent(id: "")
+    var eventObj = AppTroveEvent(id: "")
     var deviceInfo: DeviceInfo? = nil
     var lastSessionTime: String
     private var appToken: String
@@ -104,7 +104,7 @@ class TrackierWorkRequest {
         dict["osv"] = UIDevice.current.systemVersion
         dict["sdkv"] = Constants.SDK_VERSION
         dict["apv"] = DeviceInfo().buildInfo?["CFBundleShortVersionString"]
-        dict["insId"] = TrackierSDK.getTrackierId().lowercased()
+        dict["insId"] = AppTroveSDK.getAppTroveId().lowercased()
         dict["appKey"] = appToken
         return dict
     }
@@ -115,7 +115,7 @@ class TrackierWorkRequest {
             dict["osv"] = UIDevice.current.systemVersion
             dict["sdkv"] = Constants.SDK_VERSION
             dict["apv"] = DeviceInfo().buildInfo?["CFBundleShortVersionString"]
-            dict["insId"] = TrackierSDK.getTrackierId().lowercased()
+            dict["insId"] = AppTroveSDK.getAppTroveId().lowercased()
             dict["appKey"] = appToken
             return dict
         }
