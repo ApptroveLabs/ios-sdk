@@ -346,4 +346,30 @@ class TrackierSDKInstance {
             }
         }
     }
+    
+    func sendAPNToken(token: String) {
+        if token.isEmpty {
+            Logger.warning(message: "APN token is empty")
+            return
+        }
+        
+        Logger.info(message: "Sending APN token: \(token)")
+        
+        // Get app version
+        let appVersion = deviceInfo.buildInfo?["CFBundleShortVersionString"] as? String ?? ""
+        let installID = getInstallID().lowercased()
+        
+        // Create request body
+        let body: [String: Any] = [
+            "app_key": appToken,
+            "apv": appVersion,
+            "insid": installID,
+            "token": token
+        ]
+        
+        // Send token with delay to ensure install data is processed first
+        DispatchQueue.global().async {
+            APIManager.doWorkTokenIngest(body: body)
+        }
+    }
 }
