@@ -281,4 +281,16 @@ public class TrackierSDK {
             //try await APIManager.doWorkDeeplinkresolver(workRequest: wrkRequest)
         }
     }
+    
+    public static func sendAPNToken(token: String) {
+        if (!shared.isInitialized) {
+            Logger.warning(message: "SDK Not Initialized")
+            return
+        }
+        if (!isEnabled()) {
+            Logger.warning(message: "SDK Disabled")
+            return
+        }
+        shared.instance.sendAPNToken(token: token)
+    }
 }

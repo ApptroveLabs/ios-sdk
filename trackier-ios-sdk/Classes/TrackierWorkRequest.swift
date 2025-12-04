@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import AppTrackingTransparency
+import AdServices
+import AdSupport
 
 class TrackierWorkRequest {
     static let KIND_INSTALL = "install"
@@ -46,6 +49,16 @@ class TrackierWorkRequest {
     }
     
     func getData() -> Dictionary<String, Any> {
+        var appleAdsToken = ""
+        if #available(iOS 14.3, *) {
+            do {
+                appleAdsToken = try AAAttribution.attributionToken()
+            } catch {
+                print("Failed to get attribution token: \(error)")
+            }
+        } else {
+            // Fallback for earlier versions
+        }
         var dict = Dictionary<String, Any>()
         let installID = self.installId.lowercased()
         let createdAt = Utils.getCurrentTime()
