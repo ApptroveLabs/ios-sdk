@@ -157,6 +157,13 @@ class APIService {
     private func request(uri : String, method: HTTPMethod, body : [String : Any], headers : HTTPHeaders?) {
         sessionManager.request(uri, method: method, parameters: body, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (responseObj) -> Void in
             Logger.debug(message: "Response is \(responseObj)")
+            if let data = responseObj.data, uri.contains("ingest-token") {
+                // Just extract and log the message field
+                if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let message = json["message"] as? String {
+                    Logger.info(message: "APN token API response: \(message)")
+                }
+            }
         }
     }
     
