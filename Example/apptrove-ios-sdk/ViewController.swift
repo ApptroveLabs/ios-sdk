@@ -14,60 +14,67 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        userDetails();
     }
-}
-
-func userDetails(){
     
-    let event = AppTroveEvent(id: AppTroveEvent.LOGIN)
+    // MARK: - IBActions for Buttons
     
-    /*Passing the UserId and User EmailId Data */
-    AppTroveSDK.setUserID(userId: "2998329") //Pass the UserId values here
-    AppTroveSDK.setUserEmail(userEmail: "abc@gmail.com"); //Pass the user email id in the argument.
-    AppTroveSDK.setUserName(userName: "abc")
-    AppTroveSDK.setUserPhone(userPhone: "xxxxxxxxxx")
-    event.setDiscount(discount: 3.0)
-    event.setCouponCode(couponCode: "test2")
-    /*Passing the custom value in the events */
-    event.addEventValue(prop: "customeValue1", val: "test1");
-    event.addEventValue(prop: "customeValue2", val: "XXXXX");
-    AppTroveSDK.trackEvent(event: event)
-}
-
-func eventsRevenueTracking(){
-
-    let event = AppTroveEvent(id: AppTroveEvent.LOGIN)
-
-    //Passing the revenue events be like below example
-    event.setRevenue(revenue: 10.0, currency: "INR"); //Pass your generated revenue here.
-    event.currency = "INR";  //Pass your currency here.
-    event.orderId = "orderID";
-    event.param1 = "param1";
-    event.param2 = "param2";
-    event.addEventValue(prop: "customeValue1", val: "test1");
-    event.addEventValue(prop: "customeValue2", val: "XXXXX");
-    AppTroveSDK.trackEvent(event: event)
-}
-
-func eventsTracking(){
-    let event = AppTroveEvent(id:"sEMWSCTXeu")
+    @IBAction func simpleEventsTapped(_ sender: UIButton) {
+        print("Simple Events button tapped")
+        eventsTracking()
+    }
     
-    /*Below are the function for the adding the extra data,
-      You can add the extra data like login details of user or anything you need.
-      We have 10 params to add data, Below 5 are mentioned*/
+    @IBAction func revenueEventsTapped(_ sender: UIButton) {
+        print("Revenue Events button tapped")
+        eventsRevenueTracking()
+    }
     
-    event.param1 = "this is a param1 value"
-    event.param2 = "this is a param2 value"
-    event.param3 = "this is a param3 value"
-    event.param4 = "this is a param4 value"
-    event.param5 = "this is a param5 value"
-    DispatchQueue.global().async {
-        sleep(1)
+    // MARK: - Event Tracking Methods
+    
+    func eventsTracking() {
+        let event = AppTroveEvent(id: AppTroveEvent.LOGIN)
+        
+        /*Passing the UserId and User EmailId Data */
+        AppTroveSDK.setUserID(userId: "2998329") //Pass the UserId values here
+        AppTroveSDK.setUserEmail(userEmail: "abc@gmail.com") //Pass the user email id in the argument.
+        AppTroveSDK.setUserName(userName: "abc")
+        AppTroveSDK.setUserPhone(userPhone: "xxxxxxxxxx")
+        event.setDiscount(discount: 3.0)
+        event.setCouponCode(couponCode: "test2")
+        
+        /*Passing the custom value in the events */
+        event.addEventValue(prop: "customValue1", val: "test1")
+        event.addEventValue(prop: "customValue2", val: "XXXXX")
+        
+        /*Below are the function for the adding the extra data,
+          You can add the extra data like login details of user or anything you need.
+          We have 10 params to add data, Below 5 are mentioned*/
+        event.param1 = "this is a param1 value"
+        event.param2 = "this is a param2 value"
+        event.param3 = "this is a param3 value"
+        event.param4 = "this is a param4 value"
+        event.param5 = "this is a param5 value"
+        
         AppTroveSDK.trackEvent(event: event)
+        print("Simple event tracked successfully!")
+    }
+    
+    func eventsRevenueTracking() {
+        let event = AppTroveEvent(id: AppTroveEvent.PURCHASE)
+
+        //Passing the revenue events be like below example
+        event.setRevenue(revenue: 10.0, currency: "INR") //Pass your generated revenue here.
+        event.currency = "INR"  //Pass your currency here.
+        event.orderId = "orderID"
+        event.param1 = "param1"
+        event.param2 = "param2"
+        event.addEventValue(prop: "customValue1", val: "test1")
+        event.addEventValue(prop: "customValue2", val: "XXXXX")
+        
+        AppTroveSDK.trackEvent(event: event)
+        print("Revenue event tracked successfully!")
     }
 }
-    
+
 extension UIDevice {
     var modelName: String {
         var systemInfo = utsname()
@@ -80,4 +87,3 @@ extension UIDevice {
         return identifier
     }
 }
-

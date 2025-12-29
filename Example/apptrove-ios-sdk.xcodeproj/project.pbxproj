@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		35B1005635FC01EDA354BF77 /* Pods_trackier_ios_sdk_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D68C1AC9CFCF2EDE72CC1FE5 /* Pods_trackier_ios_sdk_Tests.framework */; };
-		3FA2862C287445D600C4A2CE /* Pods_trackier_ios_sdk_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56461FA04CA7AA927851C9CE /* Pods_trackier_ios_sdk_Example.framework */; };
-		3FA2862D287445D600C4A2CE /* Pods_trackier_ios_sdk_Example.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 56461FA04CA7AA927851C9CE /* Pods_trackier_ios_sdk_Example.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1F24393B1EEEC5007A234493 /* Pods_apptrove_ios_sdk_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE11228128DEC0B92426D8A /* Pods_apptrove_ios_sdk_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		768B2E47E98437F8721BEE85 /* Pods_apptrove_ios_sdk_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8F7F103A01CD0913C242A78 /* Pods_apptrove_ios_sdk_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +34,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3FA2862D287445D600C4A2CE /* Pods_trackier_ios_sdk_Example.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,24 +42,25 @@
 
 /* Begin PBXFileReference section */
 		1A0483C7D6157C8A3B004F9D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		2AEEA1ADCE35EBCA416B0A68 /* Pods-apptrove-ios-sdk_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-apptrove-ios-sdk_Tests.release.xcconfig"; path = "Target Support Files/Pods-apptrove-ios-sdk_Tests/Pods-apptrove-ios-sdk_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		302345212F0253D400210BFE /* apptrove-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "apptrove-ios-sdk.xcodeproj"; path = "../apptrove-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
 		3FA2862B2874440F00C4A2CE /* apptrove-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "apptrove-ios-sdk"; path = "../apptrove-ios-sdk"; sourceTree = "<group>"; };
-		56461FA04CA7AA927851C9CE /* Pods_trackier_ios_sdk_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trackier_ios_sdk_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		607FACD01AFB9204008FA782 /* trackier-ios-sdk_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "trackier-ios-sdk_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACD01AFB9204008FA782 /* apptrove-ios-sdk_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "apptrove-ios-sdk_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		607FACE51AFB9204008FA782 /* trackier-ios-sdk_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "trackier-ios-sdk_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		607FACE51AFB9204008FA782 /* apptrove-ios-sdk_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "apptrove-ios-sdk_Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		6AD20BF2B2B6D0FD207A6F29 /* Pods-trackier-ios-sdk_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trackier-ios-sdk_Tests.release.xcconfig"; path = "Target Support Files/Pods-trackier-ios-sdk_Tests/Pods-trackier-ios-sdk_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		7943386606D86C0C591211E4 /* Pods-trackier-ios-sdk_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trackier-ios-sdk_Example.release.xcconfig"; path = "Target Support Files/Pods-trackier-ios-sdk_Example/Pods-trackier-ios-sdk_Example.release.xcconfig"; sourceTree = "<group>"; };
-		882C1F2B860617CC80EFE29F /* Pods-trackier-ios-sdk_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trackier-ios-sdk_Tests.debug.xcconfig"; path = "Target Support Files/Pods-trackier-ios-sdk_Tests/Pods-trackier-ios-sdk_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		953732255429F1F26A6EE8C1 /* Pods-trackier-ios-sdk_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trackier-ios-sdk_Example.debug.xcconfig"; path = "Target Support Files/Pods-trackier-ios-sdk_Example/Pods-trackier-ios-sdk_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		656EDD682C9A723010D22651 /* Pods-apptrove-ios-sdk_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-apptrove-ios-sdk_Example.debug.xcconfig"; path = "Target Support Files/Pods-apptrove-ios-sdk_Example/Pods-apptrove-ios-sdk_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		8AEC9D3B1FB30D5B551EB180 /* Pods-apptrove-ios-sdk_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-apptrove-ios-sdk_Example.release.xcconfig"; path = "Target Support Files/Pods-apptrove-ios-sdk_Example/Pods-apptrove-ios-sdk_Example.release.xcconfig"; sourceTree = "<group>"; };
+		9246A7C0E6D5EAFA46ED5E47 /* Pods-apptrove-ios-sdk_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-apptrove-ios-sdk_Tests.debug.xcconfig"; path = "Target Support Files/Pods-apptrove-ios-sdk_Tests/Pods-apptrove-ios-sdk_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		AC3F8D20E117379594836648 /* apptrove-ios-sdk.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "apptrove-ios-sdk.podspec"; path = "../apptrove-ios-sdk.podspec"; sourceTree = "<group>"; };
-		D68C1AC9CFCF2EDE72CC1FE5 /* Pods_trackier_ios_sdk_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_trackier_ios_sdk_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEE11228128DEC0B92426D8A /* Pods_apptrove_ios_sdk_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_apptrove_ios_sdk_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8F7F103A01CD0913C242A78 /* Pods_apptrove_ios_sdk_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_apptrove_ios_sdk_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A5B9136CE31463970E4D99 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FA2862C287445D600C4A2CE /* Pods_trackier_ios_sdk_Example.framework in Frameworks */,
+				1F24393B1EEEC5007A234493 /* Pods_apptrove_ios_sdk_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,18 +77,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35B1005635FC01EDA354BF77 /* Pods_trackier_ios_sdk_Tests.framework in Frameworks */,
+				768B2E47E98437F8721BEE85 /* Pods_apptrove_ios_sdk_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		302345242F0254AF00210BFE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				607FACD21AFB9204008FA782 /* Example for trackier-ios-sdk */,
+				607FACD21AFB9204008FA782 /* Example for apptrove-ios-sdk */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				DC4CE29D35D30D1658DE9382 /* Pods */,
@@ -100,13 +106,13 @@
 		607FACD11AFB9204008FA782 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD01AFB9204008FA782 /* trackier-ios-sdk_Example.app */,
-				607FACE51AFB9204008FA782 /* trackier-ios-sdk_Tests.xctest */,
+				607FACD01AFB9204008FA782 /* apptrove-ios-sdk_Example.app */,
+				607FACE51AFB9204008FA782 /* apptrove-ios-sdk_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		607FACD21AFB9204008FA782 /* Example for trackier-ios-sdk */ = {
+		607FACD21AFB9204008FA782 /* Example for apptrove-ios-sdk */ = {
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
@@ -131,6 +137,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				302345212F0253D400210BFE /* apptrove-ios-sdk.xcodeproj */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -159,8 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				3FA2862B2874440F00C4A2CE /* apptrove-ios-sdk */,
-				56461FA04CA7AA927851C9CE /* Pods_trackier_ios_sdk_Example.framework */,
-				D68C1AC9CFCF2EDE72CC1FE5 /* Pods_trackier_ios_sdk_Tests.framework */,
+				AEE11228128DEC0B92426D8A /* Pods_apptrove_ios_sdk_Example.framework */,
+				C8F7F103A01CD0913C242A78 /* Pods_apptrove_ios_sdk_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -168,10 +175,10 @@
 		DC4CE29D35D30D1658DE9382 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				953732255429F1F26A6EE8C1 /* Pods-trackier-ios-sdk_Example.debug.xcconfig */,
-				7943386606D86C0C591211E4 /* Pods-trackier-ios-sdk_Example.release.xcconfig */,
-				882C1F2B860617CC80EFE29F /* Pods-trackier-ios-sdk_Tests.debug.xcconfig */,
-				6AD20BF2B2B6D0FD207A6F29 /* Pods-trackier-ios-sdk_Tests.release.xcconfig */,
+				656EDD682C9A723010D22651 /* Pods-apptrove-ios-sdk_Example.debug.xcconfig */,
+				8AEC9D3B1FB30D5B551EB180 /* Pods-apptrove-ios-sdk_Example.release.xcconfig */,
+				9246A7C0E6D5EAFA46ED5E47 /* Pods-apptrove-ios-sdk_Tests.debug.xcconfig */,
+				2AEEA1ADCE35EBCA416B0A68 /* Pods-apptrove-ios-sdk_Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -179,31 +186,31 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		607FACCF1AFB9204008FA782 /* trackier-ios-sdk_Example */ = {
+		607FACCF1AFB9204008FA782 /* apptrove-ios-sdk_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "trackier-ios-sdk_Example" */;
+			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "apptrove-ios-sdk_Example" */;
 			buildPhases = (
-				8E2370C6CB79A00FCFF85840 /* [CP] Check Pods Manifest.lock */,
+				ADF4ED5C7FE126CD5623F4C2 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				BDFFE704DA91B82E6D3FAE90 /* [CP] Embed Pods Frameworks */,
 				3FA2862E287445D600C4A2CE /* Embed Frameworks */,
+				74881C96609B0BE87861F741 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "trackier-ios-sdk_Example";
-			productName = "trackier-ios-sdk";
-			productReference = 607FACD01AFB9204008FA782 /* trackier-ios-sdk_Example.app */;
+			name = "apptrove-ios-sdk_Example";
+			productName = "apptrove-ios-sdk";
+			productReference = 607FACD01AFB9204008FA782 /* apptrove-ios-sdk_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		607FACE41AFB9204008FA782 /* trackier-ios-sdk_Tests */ = {
+		607FACE41AFB9204008FA782 /* apptrove-ios-sdk_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "trackier-ios-sdk_Tests" */;
+			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "apptrove-ios-sdk_Tests" */;
 			buildPhases = (
-				0630FDF2E1AEA22011BCF110 /* [CP] Check Pods Manifest.lock */,
+				C1220FBC0D8FD65C1B003B6D /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
@@ -213,9 +220,9 @@
 			dependencies = (
 				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
 			);
-			name = "trackier-ios-sdk_Tests";
+			name = "apptrove-ios-sdk_Tests";
 			productName = Tests;
-			productReference = 607FACE51AFB9204008FA782 /* trackier-ios-sdk_Tests.xctest */;
+			productReference = 607FACE51AFB9204008FA782 /* apptrove-ios-sdk_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -230,19 +237,19 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = MK28326HAN;
+						DevelopmentTeam = DRN85HZJS8;
 						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = MK28326HAN;
+						DevelopmentTeam = DRN85HZJS8;
 						LastSwiftMigration = 1130;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
 			};
-			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "trackier-ios-sdk" */;
+			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "apptrove-ios-sdk" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -253,10 +260,16 @@
 			mainGroup = 607FACC71AFB9204008FA782;
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 302345242F0254AF00210BFE /* Products */;
+					ProjectRef = 302345212F0253D400210BFE /* apptrove-ios-sdk.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
-				607FACCF1AFB9204008FA782 /* trackier-ios-sdk_Example */,
-				607FACE41AFB9204008FA782 /* trackier-ios-sdk_Tests */,
+				607FACCF1AFB9204008FA782 /* apptrove-ios-sdk_Example */,
+				607FACE41AFB9204008FA782 /* apptrove-ios-sdk_Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -282,57 +295,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0630FDF2E1AEA22011BCF110 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-trackier-ios-sdk_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8E2370C6CB79A00FCFF85840 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-trackier-ios-sdk_Example-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BDFFE704DA91B82E6D3FAE90 /* [CP] Embed Pods Frameworks */ = {
+		74881C96609B0BE87861F741 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-trackier-ios-sdk_Example/Pods-trackier-ios-sdk_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-apptrove-ios-sdk_Example/Pods-apptrove-ios-sdk_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Willow/Willow.framework",
@@ -347,7 +316,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-trackier-ios-sdk_Example/Pods-trackier-ios-sdk_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-apptrove-ios-sdk_Example/Pods-apptrove-ios-sdk_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ADF4ED5C7FE126CD5623F4C2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-apptrove-ios-sdk_Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1220FBC0D8FD65C1B003B6D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-apptrove-ios-sdk_Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -375,7 +388,7 @@
 /* Begin PBXTargetDependency section */
 		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 607FACCF1AFB9204008FA782 /* trackier-ios-sdk_Example */;
+			target = 607FACCF1AFB9204008FA782 /* apptrove-ios-sdk_Example */;
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -511,12 +524,12 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 953732255429F1F26A6EE8C1 /* Pods-trackier-ios-sdk_Example.debug.xcconfig */;
+			baseConfigurationReference = 656EDD682C9A723010D22651 /* Pods-apptrove-ios-sdk_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MK28326HAN;
+				DEVELOPMENT_TEAM = DRN85HZJS8;
 				INFOPLIST_FILE = "apptrove-ios-sdk/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -530,12 +543,12 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7943386606D86C0C591211E4 /* Pods-trackier-ios-sdk_Example.release.xcconfig */;
+			baseConfigurationReference = 8AEC9D3B1FB30D5B551EB180 /* Pods-apptrove-ios-sdk_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MK28326HAN;
+				DEVELOPMENT_TEAM = DRN85HZJS8;
 				INFOPLIST_FILE = "apptrove-ios-sdk/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -549,11 +562,11 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 882C1F2B860617CC80EFE29F /* Pods-trackier-ios-sdk_Tests.debug.xcconfig */;
+			baseConfigurationReference = 9246A7C0E6D5EAFA46ED5E47 /* Pods-apptrove-ios-sdk_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				DEVELOPMENT_TEAM = MK28326HAN;
+				DEVELOPMENT_TEAM = DRN85HZJS8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -569,17 +582,17 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/trackier-ios-sdk_Example.app/trackier-ios-sdk_Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/apptrove-ios-sdk_Example.app/apptrove-ios-sdk_Example";
 			};
 			name = Debug;
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AD20BF2B2B6D0FD207A6F29 /* Pods-trackier-ios-sdk_Tests.release.xcconfig */;
+			baseConfigurationReference = 2AEEA1ADCE35EBCA416B0A68 /* Pods-apptrove-ios-sdk_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				DEVELOPMENT_TEAM = MK28326HAN;
+				DEVELOPMENT_TEAM = DRN85HZJS8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -591,14 +604,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/trackier-ios-sdk_Example.app/trackier-ios-sdk_Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/apptrove-ios-sdk_Example.app/apptrove-ios-sdk_Example";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "trackier-ios-sdk" */ = {
+		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "apptrove-ios-sdk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACED1AFB9204008FA782 /* Debug */,
@@ -607,7 +620,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "trackier-ios-sdk_Example" */ = {
+		607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "apptrove-ios-sdk_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACF01AFB9204008FA782 /* Debug */,
@@ -616,7 +629,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "trackier-ios-sdk_Tests" */ = {
+		607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "apptrove-ios-sdk_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				607FACF31AFB9204008FA782 /* Debug */,

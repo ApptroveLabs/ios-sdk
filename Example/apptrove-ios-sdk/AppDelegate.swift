@@ -26,10 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, DeepLinkListener {
          * In First argument, you need to pass the AppTrove SDK api key
         * In second argument, you need to pass the environment which can be either "development", "production" or "testing". */
         
-        let config = AppTroveSDKConfig(appToken: "xxxx-xx-xxx-xxx", env: AppTroveSDKConfig.ENV_DEVELOPMENT) //Pass your AppTrove sdk api key
+        let config = AppTroveSDKConfig(appToken: "e0884ad1-000f-4f61-8dd3-b2b4d7c1ac5b", env: AppTroveSDKConfig.ENV_DEVELOPMENT) //Pass your AppTrove sdk api key
         config.setDeeplinkListerner(listener: self)
         //AppTroveSDK.updatePostbackConversion(conversionValue: 0)
-        AppTroveSDK.waitForATTUserAuthorization(timeoutInterval: 20)
+//        AppTroveSDK.waitForATTUserAuthorization(timeoutInterval: 20)
         AppTroveSDK.initialize(config: config)
         return true
     }

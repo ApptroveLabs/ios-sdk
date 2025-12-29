@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "trackier-ios-sdk_Example.app"
-               BlueprintName = "trackier-ios-sdk_Example"
+               BuildableName = "apptrove-ios-sdk_Example.app"
+               BlueprintName = "apptrove-ios-sdk_Example"
                ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "trackier-ios-sdk_Tests.xctest"
-               BlueprintName = "trackier-ios-sdk_Tests"
+               BuildableName = "apptrove-ios-sdk_Tests.xctest"
+               BlueprintName = "apptrove-ios-sdk_Tests"
                ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "trackier-ios-sdk_Example.app"
-            BlueprintName = "trackier-ios-sdk_Example"
-            ReferencedContainer = "container:trackier-ios-sdk.xcodeproj">
+            BuildableName = "apptrove-ios-sdk_Example.app"
+            BlueprintName = "apptrove-ios-sdk_Example"
+            ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -56,8 +56,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "trackier-ios-sdk_Tests.xctest"
-               BlueprintName = "trackier-ios-sdk_Tests"
+               BuildableName = "apptrove-ios-sdk_Tests.xctest"
+               BlueprintName = "apptrove-ios-sdk_Tests"
                ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -78,9 +78,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "trackier-ios-sdk_Example.app"
-            BlueprintName = "trackier-ios-sdk_Example"
-            ReferencedContainer = "container:trackier-ios-sdk.xcodeproj">
+            BuildableName = "apptrove-ios-sdk_Example.app"
+            BlueprintName = "apptrove-ios-sdk_Example"
+            ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "trackier-ios-sdk_Example.app"
-            BlueprintName = "trackier-ios-sdk_Example"
-            ReferencedContainer = "container:trackier-ios-sdk.xcodeproj">
+            BuildableName = "apptrove-ios-sdk_Example.app"
+            BlueprintName = "apptrove-ios-sdk_Example"
+            ReferencedContainer = "container:apptrove-ios-sdk.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

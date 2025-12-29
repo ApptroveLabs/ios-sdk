@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:trackier-ios-sdk.xcodeproj">
+      location = "self:apptrove-ios-sdk.xcodeproj">
    </FileRef>
 </Workspace>
