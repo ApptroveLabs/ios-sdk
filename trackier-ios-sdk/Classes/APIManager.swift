@@ -95,10 +95,10 @@ class APIManager: NSObject {
             return try await APIService.postAsyncDeeplink(uri: baseUrl, body: body, headers: headers)
         }
     
-        static func doWorkTokenIngest(body: [String: Any]) {
-            let jsonData = Utils.convertDictToJSON(data: body)
-            Logger.debug(message: "Sending token ingest request. Body is: \(jsonData)")
-            let baseUrl = getBaseUrl(for: Constants.TOKEN_INGEST_URL)
-            APIService.post(uri: baseUrl, body: body, headers: headers)
-        }
+    static func doWorkTokenIngest(body: [String: Any]) {
+        let jsonData = Utils.convertDictToJSON(data: body)
+        Logger.debug(message: "Sending token ingest request. Body is: \(jsonData)")
+        let baseUrl = getBaseUrl(for: Constants.TOKEN_INGEST_URL)
+        APIService.post(uri: baseUrl, body: body, headers: headers)
+    }
 }

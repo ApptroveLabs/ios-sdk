@@ -17,6 +17,7 @@ class Constants {
     static let EVENTS_URL = BASE_URL + "/event"
     static let SESSIONS_URL = BASE_URL + "/session"
     static let TOKEN_URL = BASE_URL + "/device-token"
+    static let TOKEN_INGEST_URL = BASE_URL + "/ingest-token"
     static let DEEPLINK_URL = BASE_URL_DL + "/resolver"
     static let BASE_URL_DYNAMIC_LINK = "sdkr.apptracking.io/api/v4/ug/dlg/"
     static let LOG_TAG = "com.trackier.sdk"

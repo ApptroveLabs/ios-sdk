@@ -199,6 +199,18 @@ public class TrackierSDK {
         shared.instance.dob = dob
     }
     
+    public static func sendAPNToken(token: String) {
+        if (!shared.isInitialized) {
+            Logger.warning(message: "SDK Not Initialized")
+            return
+        }
+        if (!isEnabled()) {
+            Logger.warning(message: "SDK Disabled")
+            return
+        }
+        shared.instance.sendAPNToken(token: token)
+    }
+    
     public static func parseDeepLink(uri: String?) {
         if #available(iOS 13.0, *) {
             shared.instance.parseDeepLink(uri: uri)
