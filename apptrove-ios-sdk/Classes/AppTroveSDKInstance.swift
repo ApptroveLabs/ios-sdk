@@ -9,6 +9,7 @@ import Foundation
 import os
 import Alamofire
 import StoreKit
+import AppTrackingTransparency
 
 class AppTroveSDKInstance {
     
@@ -43,7 +44,18 @@ class AppTroveSDKInstance {
     private var lastSkanComputeAt: [String: TimeInterval] = [:]
     private let skanDedupeLock = NSLock()
     private let skanDedupeWindowSeconds: TimeInterval = 5
-    
+
+    // Deferred deeplink resolver needs the install on the backend first,
+    // so subscribe requests are held until the install request has finished.
+    private var isInstallRequestDone = false
+    private var isDeferredDeeplinkPending = false
+    private let deferredDeeplinkLock = NSLock()
+
+    // Events tracked after initialize() but before the install is sent
+    // (e.g. while waiting for ATT) are queued and sent once the install request is done.
+    private var pendingEvents: [AppTroveEvent] = []
+    private let pendingEventsLock = NSLock()
+
     /**
      * Initialize method should be called to initialize the sdk
      */
@@ -76,15 +88,48 @@ class AppTroveSDKInstance {
             Logger.info(message: "SKAdNetwork registration SKIPPED (Already registered)")
         }
         
+        // Install already tracked on a previous launch, resolver can find it
+        if isInstallTracked() {
+            markInstallRequestDone()
+        }
+
         if (timeoutInterval > 0) {
-            DispatchQueue.main.async(execute: {
-                Timer.scheduledTimer(withTimeInterval: TimeInterval(self.timeoutInterval), repeats: false)
-                { timer in
-                    self._sendInstall()
-                }
-            })
+            let deadline = Date().addingTimeInterval(TimeInterval(timeoutInterval))
+            DispatchQueue.main.async {
+                self.sendInstallAfterATT(deadline: deadline)
+            }
         } else {
             _sendInstall()
+        }
+    }
+
+    // Sends the install as soon as the user answers the ATT prompt,
+    // or when the timeout passed to waitForATTUserAuthorization expires.
+    private func sendInstallAfterATT(deadline: Date) {
+        if #available(iOS 14, *),
+           ATTrackingManager.trackingAuthorizationStatus == .notDetermined,
+           Date() < deadline {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.sendInstallAfterATT(deadline: deadline)
+            }
+            return
+        }
+        _sendInstall()
+    }
+
+    private func markInstallRequestDone() {
+        deferredDeeplinkLock.lock()
+        isInstallRequestDone = true
+        let shouldResolve = isDeferredDeeplinkPending
+        isDeferredDeeplinkPending = false
+        deferredDeeplinkLock.unlock()
+
+        // Events queued before the install go out once the install request is done
+        flushPendingEvents()
+
+        if shouldResolve, #available(iOS 13.0, *) {
+            Logger.debug(message: "Install request finished, resolving pending deferred deeplink")
+            resolveDeferredDeepLink()
         }
     }
     
@@ -198,16 +243,38 @@ class AppTroveSDKInstance {
         DispatchQueue.global().async {
             if #available(iOS 13.0, *) {
                 Task {
-                    let resData = try await APIManager.doWorkInstall(workRequest: wrk)
-                    let strResData = String(decoding: resData, as: UTF8.self)
-                    let res = try! JSONDecoder().decode(InstallResponse.self, from: strResData.data(using: .utf8)!)
-                    Utils.campaignData(res: res)
+                    defer { self.markInstallRequestDone() }
+                    do {
+                        let resData = try await APIManager.doWorkInstall(workRequest: wrk)
+                        if let res = try? JSONDecoder().decode(InstallResponse.self, from: resData) {
+                            Utils.campaignData(res: res)
+                        } else {
+                            Logger.debug(message: "Install response could not be decoded")
+                        }
+                    } catch {
+                        Logger.error(message: "Install request failed: \(error.localizedDescription)")
+                    }
                 }
             } else {
                 APIManager.doWork(workRequest: wrk)
+                self.markInstallRequestDone()
             }
         }
         setInstallTracked()
+    }
+
+    private func flushPendingEvents() {
+        pendingEventsLock.lock()
+        let events = pendingEvents
+        pendingEvents.removeAll()
+        pendingEventsLock.unlock()
+
+        if !events.isEmpty {
+            Logger.debug(message: "Sending \(events.count) event(s) queued before install")
+        }
+        for event in events {
+            trackEvent(event: event)
+        }
     }
     
     func trackEvent(event: AppTroveEvent) {
@@ -219,7 +286,21 @@ class AppTroveSDKInstance {
             Logger.warning(message: "SDK Not Initialized")
         }
         if (!isInstallTracked()) {
-            Logger.warning(message: "Event sent before Install was tracked")
+            if isInitialized {
+                pendingEventsLock.lock()
+                pendingEvents.append(event)
+                pendingEventsLock.unlock()
+                // Install request may have finished while queueing; flush so nothing is stranded
+                deferredDeeplinkLock.lock()
+                let installDone = isInstallRequestDone
+                deferredDeeplinkLock.unlock()
+                if installDone {
+                    flushPendingEvents()
+                }
+                Logger.debug(message: "Event queued until Install is tracked")
+            } else {
+                Logger.warning(message: "Event sent before Install was tracked")
+            }
             return
         }
         let wrk = makeWorkRequest(kind: AppTroveWorkRequest.KIND_EVENT)
@@ -423,6 +504,20 @@ class AppTroveSDKInstance {
     
     @available(iOS 13.0, *)
     func subscribeDeepLinkData() {
+        deferredDeeplinkLock.lock()
+        if !isInstallRequestDone {
+            // Resolved from markInstallRequestDone() once the install is sent
+            isDeferredDeeplinkPending = true
+            deferredDeeplinkLock.unlock()
+            Logger.debug(message: "Install not sent yet, deferred deeplink will resolve after install")
+            return
+        }
+        deferredDeeplinkLock.unlock()
+        resolveDeferredDeepLink()
+    }
+
+    @available(iOS 13.0, *)
+    private func resolveDeferredDeepLink() {
         var deeplinRes: InstallResponse? = nil
         let wrkRequest = makeWorkRequest(kind: AppTroveWorkRequest.KIND_Resolver)
         DispatchQueue.global().async {
