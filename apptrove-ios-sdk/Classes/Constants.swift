@@ -8,8 +8,7 @@
 import Foundation
 
 class Constants {
-    static let SDK_VERSION = "2.0.8"
-    static let USER_AGENT = "com.apptrove.sdk:ios-sdk:" + SDK_VERSION
+    static let SDK_VERSION = "2.0.9"
     static let API_VERSION = "v1"
     static let BASE_URL = "events.trackier.io/" + API_VERSION
     static let BASE_URL_DL = "sdkr.apptracking.io/dl"
@@ -30,6 +29,8 @@ class Constants {
     static let SHARED_PREF_LAST_SESSION_TIME = "last_session_time"
     static let SHARED_PREF_LAST_SESSION_DATE = "last_session_date"
     static let SHARED_PREF_IS_SKAN_INITIALIZED = "is_skan_initialized"
+    static let SHARED_PREF_WEBVIEW_UA = "webview_user_agent"
+    static let SHARED_PREF_WEBVIEW_UA_OS = "webview_user_agent_os"
 
     static let ENV_PRODUCTION = "production"
     static let ENV_DEVELOPMENT = "development"
