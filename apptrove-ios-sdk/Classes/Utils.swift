@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WebKit
 import CryptoSwift
 
 class Utils {
@@ -83,6 +84,100 @@ class Utils {
         return urlComponents.url?.query
     }
     
+    // System UA as URLSession sends it, e.g. "MyApp/42 CFNetwork/1494.0.7 Darwin/23.4.0".
+    static let deviceUserAgent: String = {
+        let info = Bundle.main.infoDictionary
+        let appName = (info?["CFBundleName"] as? String) ?? (info?["CFBundleExecutable"] as? String) ?? "App"
+        let appBuild = (info?["CFBundleVersion"] as? String) ?? "1"
+        let cfNetwork = (Bundle(identifier: "com.apple.CFNetwork")?.infoDictionary?["CFBundleVersion"] as? String) ?? ""
+        var sysInfo = utsname()
+        uname(&sysInfo)
+        let darwin = withUnsafeBytes(of: &sysInfo.release) { bytes in
+            String(decoding: bytes.prefix { $0 != 0 }, as: UTF8.self)
+        }
+        var ua = "\(appName.replacingOccurrences(of: " ", with: ""))/\(appBuild)"
+        if !cfNetwork.isEmpty { ua += " CFNetwork/\(cfNetwork)" }
+        if !darwin.isEmpty { ua += " Darwin/\(darwin)" }
+        return toHeaderSafe(ua)
+    }()
+
+    // WKWebView UA, e.g. "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148".
+    // Read from a real WKWebView, not built by hand: from iOS 26 WebKit reports a frozen
+    // OS version (18_x) rather than the real one. Cached per OS version, so the WebView
+    // is only loaded on first launch and after an OS update.
+    private static let webViewUALock = NSLock()
+    private static let webViewUAGroup = DispatchGroup()
+    private static var webViewUAValue: String? = nil
+    private static var isWebViewUALoading = false
+    private static var webViewUATimedOut = false
+    private static var webViewUAView: WKWebView? = nil // main thread only, kept alive until JS returns
+
+    // Called from initialize so the UA is usually ready before the first request.
+    static func loadWebViewUserAgent() {
+        webViewUALock.lock()
+        if webViewUAValue != nil || isWebViewUALoading {
+            webViewUALock.unlock()
+            return
+        }
+        let osVersion = ProcessInfo.processInfo.operatingSystemVersionString
+        let cached = CacheManager.getString(key: Constants.SHARED_PREF_WEBVIEW_UA)
+        if !cached.isEmpty && CacheManager.getString(key: Constants.SHARED_PREF_WEBVIEW_UA_OS) == osVersion {
+            webViewUAValue = cached
+            webViewUALock.unlock()
+            return
+        }
+        isWebViewUALoading = true
+        webViewUAGroup.enter()
+        webViewUALock.unlock()
+
+        DispatchQueue.main.async {
+            let webView = WKWebView(frame: .zero)
+            webViewUAView = webView
+            webView.evaluateJavaScript("navigator.userAgent") { result, error in
+                let ua = toHeaderSafe((result as? String) ?? "")
+                if ua.isEmpty {
+                    Logger.debug(message: "WebView user agent unavailable: \(String(describing: error))")
+                } else {
+                    CacheManager.setString(key: Constants.SHARED_PREF_WEBVIEW_UA, value: ua)
+                    CacheManager.setString(key: Constants.SHARED_PREF_WEBVIEW_UA_OS, value: osVersion)
+                }
+                webViewUALock.lock()
+                webViewUAValue = ua
+                isWebViewUALoading = false
+                webViewUALock.unlock()
+                webViewUAView = nil
+                webViewUAGroup.leave()
+            }
+        }
+    }
+
+    // Empty if WKWebView fails, or if still loading when read on the main thread.
+    static var webViewUserAgent: String {
+        loadWebViewUserAgent()
+        webViewUALock.lock()
+        let shouldWait = webViewUAValue == nil && !webViewUATimedOut && !Thread.isMainThread
+        webViewUALock.unlock()
+        // Requests run off the main thread, so they can wait for the main-thread WebView load.
+        if shouldWait && webViewUAGroup.wait(timeout: .now() + 3) == .timedOut {
+            webViewUALock.lock()
+            webViewUATimedOut = true
+            webViewUALock.unlock()
+        }
+        webViewUALock.lock()
+        defer { webViewUALock.unlock() }
+        return webViewUAValue ?? ""
+    }
+
+    // Single User-Agent header: system UA followed by the WebView UA.
+    static var userAgent: String {
+        return [deviceUserAgent, webViewUserAgent].filter { !$0.isEmpty }.joined(separator: " ")
+    }
+
+    // Header values must be printable ASCII.
+    private static func toHeaderSafe(_ value: String) -> String {
+        return String(value.unicodeScalars.map { (32...126).contains($0.value) ? Character($0) : "?" })
+    }
+
     static func campaignData(res: InstallResponse) -> Void {
         CacheManager.setString(key: Constants.SHARED_PREF_AD, value: res.ad!)
         CacheManager.setString(key: Constants.SHARED_PREF_ADID, value: res.adId!)

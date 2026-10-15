@@ -275,7 +275,7 @@ public class AppTroveSDK {
             method: .post,
             parameters: body,
             encoding: JSONEncoding.default,
-            headers: nil
+            headers: APIManager.headers
         )
         .validate()
         .responseDecodable(of: InstallResponse.self) { response in

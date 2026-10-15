@@ -68,6 +68,7 @@ class AppTroveSDKInstance {
         self.appToken = config.appToken
         self.installId = getInstallID()
         self.installTime = getInstallTime()
+        Utils.loadWebViewUserAgent()
 
         // Register with SKAdNetwork once. Later CV comes from skan compute API.
         if !CacheManager.getBool(key: Constants.SHARED_PREF_IS_SKAN_INITIALIZED) {
@@ -493,7 +494,7 @@ class AppTroveSDKInstance {
                 body: config.toDictionary(),
                 headers: [
                     "X-Client-SDK": Constants.SDK_VERSION,
-                    "User-Agent": Constants.USER_AGENT
+                    "User-Agent": Utils.userAgent
                 ]
             )
             return response
