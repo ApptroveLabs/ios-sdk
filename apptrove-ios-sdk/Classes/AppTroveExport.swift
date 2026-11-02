@@ -63,6 +63,11 @@ public func TrackEvent(eventId: UnsafePointer<CChar>?, eventParam: UnsafePointer
     event.param8 = eventsData.param8
     event.param9 = eventsData.param9
     event.param10 = eventsData.param10
+    event.param11 = eventsData.param11
+    event.param12 = eventsData.param12
+    event.param13 = eventsData.param13
+    event.param14 = eventsData.param14
+    event.param15 = eventsData.param15
     AppTroveSDK.trackEvent(event: event)
 }
 
@@ -82,6 +87,11 @@ struct EventsExtraParam: Decodable {
     let param8: String
     let param9: String
     let param10: String
+    let param11: String?
+    let param12: String?
+    let param13: String?
+    let param14: String?
+    let param15: String?
 }
 
 struct InitData: Decodable {

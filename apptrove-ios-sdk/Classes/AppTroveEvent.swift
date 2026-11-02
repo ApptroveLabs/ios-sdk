@@ -26,6 +26,11 @@ public class AppTroveEvent {
     public var param8: String? = ""
     public var param9: String? = ""
     public var param10: String? = ""
+    public var param11: String? = ""
+    public var param12: String? = ""
+    public var param13: String? = ""
+    public var param14: String? = ""
+    public var param15: String? = ""
 
     var revenue: Float64? = 0.0
     var discount: Float64? = 0.0
@@ -65,6 +70,11 @@ public class AppTroveEvent {
         dict["param8"] = self.param8
         dict["param9"] = self.param9
         dict["param10"] = self.param10
+        dict["param11"] = self.param11
+        dict["param12"] = self.param12
+        dict["param13"] = self.param13
+        dict["param14"] = self.param14
+        dict["param15"] = self.param15
         dict["currency"] = self.currency
         dict["revenue"] = self.revenue
         dict["discount"] = self.discount
