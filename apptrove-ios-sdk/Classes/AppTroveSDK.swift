@@ -271,7 +271,7 @@ public class AppTroveSDK {
             "appKey": AppTroveSDK.getAppToken()
         ]
         AF.request(
-            "https://sdkr.apptracking.io/dl/resolver",
+            "https://sdkr.apptrove.io/dl/resolver",
             method: .post,
             parameters: body,
             encoding: JSONEncoding.default,
