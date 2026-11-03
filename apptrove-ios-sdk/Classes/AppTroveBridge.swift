@@ -145,6 +145,11 @@ public final class ObjCAppTroveEvent: NSObject {
     @objc public var param8: String = ""
     @objc public var param9: String = ""
     @objc public var param10: String = ""
+    @objc public var param11: String = ""
+    @objc public var param12: String = ""
+    @objc public var param13: String = ""
+    @objc public var param14: String = ""
+    @objc public var param15: String = ""
     @objc public var revenue: Double = 0
     @objc public var discount: Double = 0
 
@@ -198,6 +203,11 @@ public final class ObjCAppTroveEvent: NSObject {
         event.param8 = param8
         event.param9 = param9
         event.param10 = param10
+        event.param11 = param11
+        event.param12 = param12
+        event.param13 = param13
+        event.param14 = param14
+        event.param15 = param15
         event.revenue = revenue
         event.discount = discount
         for (key, value) in customValues {

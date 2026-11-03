@@ -159,7 +159,7 @@ Note:- Argument in Trackier event class is event Id.
 
 You can integrate inbuilt params with the event. In-built param list are mentioned below:-
 
-orderId, revenue, currency, param1, param2, param3 ,param4, param5, param6, param7, param8, param9, param10.
+orderId, revenue, currency, param1, param2, param3 ,param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15.
 
 Below are the screenshot of following example:-
 
