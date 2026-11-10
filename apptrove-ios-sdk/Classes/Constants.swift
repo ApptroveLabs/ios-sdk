@@ -8,10 +8,10 @@
 import Foundation
 
 class Constants {
-    static let SDK_VERSION = "2.0.9"
+    static let SDK_VERSION = "2.0.10"
     static let API_VERSION = "v1"
-    static let BASE_URL = "events.trackier.io/" + API_VERSION
-    static let BASE_URL_DL = "sdkr.apptracking.io/dl"
+    static let BASE_URL = "events.apptrove.io/" + API_VERSION
+    static let BASE_URL_DL = "sdkr.apptrove.io/dl"
     static let INSTALL_URL = BASE_URL + "/install"
     static let EVENTS_URL = BASE_URL + "/event"
     static let SESSIONS_URL = BASE_URL + "/session"
@@ -19,7 +19,7 @@ class Constants {
     static let TOKEN_URL = BASE_URL + "/device-token"
     static let TOKEN_INGEST_URL = BASE_URL + "/ingest-token"
     static let DEEPLINK_URL = BASE_URL_DL + "/resolver"
-    static let BASE_URL_DYNAMIC_LINK = "sdkr.apptracking.io/api/v4/ug/dlg/"
+    static let BASE_URL_DYNAMIC_LINK = "sdkr.apptrove.io/api/v4/ug/dlg/"
     static let LOG_TAG = "com.apptrove.sdk"
     static let SHARED_PREF_NAME = "com.apptrove.sdk"
     static let SCHEME = "https://"
