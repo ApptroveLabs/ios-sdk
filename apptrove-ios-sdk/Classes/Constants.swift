@@ -8,7 +8,7 @@
 import Foundation
 
 class Constants {
-    static let SDK_VERSION = "2.0.10"
+    static let SDK_VERSION = "2.0.11"
     static let API_VERSION = "v1"
     static let BASE_URL = "events.apptrove.io/" + API_VERSION
     static let BASE_URL_DL = "sdkr.apptrove.io/dl"
