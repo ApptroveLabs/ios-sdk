@@ -86,6 +86,11 @@ class TrackierWorkRequest {
         dict["cphone"] = customerPhone
         dict["cname"] = customerName
         dict["iOSAttributionToken"] = appleAdsToken
+        // Same keys the Android SDK sends. On iOS, Limit Ad Tracking is on
+        // whenever the user has not allowed tracking.
+        let attStatus = DeviceInfo.getATTStatus()
+        dict["attStatus"] = attStatus
+        dict["isLAT"] = attStatus != "authorized"
         return dict
     }
     

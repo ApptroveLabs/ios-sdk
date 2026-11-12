@@ -82,6 +82,28 @@ class DeviceInfo {
         return  "\(screenDensity)"
     }
     
+    /// The user's ad-tracking choice, sent to the server as "attStatus":
+    /// "authorized", "denied", "restricted" or "not_determined".
+    /// Reading it never shows the ATT prompt. Before iOS 14 there is no prompt,
+    /// only the Limit Ad Tracking switch, which maps to "authorized" or "denied".
+    static func getATTStatus() -> String {
+        if #available(iOS 14, *) {
+            switch ATTrackingManager.trackingAuthorizationStatus {
+            case .authorized:
+                return "authorized"
+            case .denied:
+                return "denied"
+            case .restricted:
+                return "restricted"
+            case .notDetermined:
+                return "not_determined"
+            @unknown default:
+                return "not_determined"
+            }
+        }
+        return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? "authorized" : "denied"
+    }
+
     private func getIDFA() -> String? {
         if #available(iOS 14, *) {
             if ATTrackingManager.trackingAuthorizationStatus != ATTrackingManager.AuthorizationStatus.authorized  {
