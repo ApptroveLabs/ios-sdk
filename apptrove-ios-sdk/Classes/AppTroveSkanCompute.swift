@@ -70,6 +70,15 @@ struct SkanComputeResponse: Decodable {
             )
         }
 
+        // Error reply, e.g. {"success":false,"message":"cv mapping not found","data":null}
+        if json["success"] != nil || json["message"] != nil {
+            return SkanComputeResponse(
+                success: Self.boolValue(json["success"]),
+                message: Self.stringValue(json["message"]),
+                data: nil
+            )
+        }
+
         return nil
     }
 
