@@ -30,6 +30,19 @@ class Utils {
         return formatter.string(from: date)
     }
     
+    // ISO time with microseconds, e.g. "2026-11-25T07:44:51.778303Z" (DateFormatter stops at ms).
+    static func formatTimeMicros(date: Date) -> String {
+        let totalMicros = Int64((date.timeIntervalSince1970 * 1_000_000).rounded(.down))
+        let seconds = totalMicros / 1_000_000
+        let micros = totalMicros % 1_000_000
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let base = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(seconds)))
+        return String(format: "%@.%06lldZ", base, micros)
+    }
+    
     static func convertUnixTsToISO(ts: Int64) -> String {
         let lst = Date(timeIntervalSince1970: TimeInterval(ts))
         return formatTime(date: lst)
