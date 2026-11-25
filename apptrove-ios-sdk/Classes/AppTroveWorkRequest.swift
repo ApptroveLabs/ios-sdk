@@ -37,6 +37,7 @@ class AppTroveWorkRequest {
     var gender = ""
     var dob = ""
     var deeplinkUrl = ""
+    var createdAt: String? = nil  // set for events (trigger time, with microseconds)
     
     init(kind: String, appToken: String, mode: String) {
         self.kind = kind
@@ -48,7 +49,7 @@ class AppTroveWorkRequest {
     func getData() -> Dictionary<String, Any> {
         var dict = Dictionary<String, Any>()
         let installID = self.installId.lowercased()
-        let createdAt = Utils.getCurrentTime()
+        let createdAt = self.createdAt ?? Utils.getCurrentTime()
         dict["appKey"] = self.appToken
         dict["device"] = deviceInfo?.getDeviceInfo()
         dict["createdAt"] = createdAt

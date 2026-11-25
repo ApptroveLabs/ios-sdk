@@ -53,7 +53,7 @@ class AppTroveSDKInstance {
 
     // Events tracked after initialize() but before the install is sent
     // (e.g. while waiting for ATT) are queued and sent once the install request is done.
-    private var pendingEvents: [AppTroveEvent] = []
+    private var pendingEvents: [(event: AppTroveEvent, eventTime: Date)] = []
     private let pendingEventsLock = NSLock()
 
     /**
@@ -273,12 +273,13 @@ class AppTroveSDKInstance {
         if !events.isEmpty {
             Logger.debug(message: "Sending \(events.count) event(s) queued before install")
         }
-        for event in events {
-            trackEvent(event: event)
+        for pending in events {
+            trackEvent(event: pending.event, eventTime: pending.eventTime)
         }
     }
     
-    func trackEvent(event: AppTroveEvent) {
+    // eventTime: moment the app called trackEvent (kept for events queued before install).
+    func trackEvent(event: AppTroveEvent, eventTime: Date = Date()) {
         if (!isEnabled) {
             Logger.warning(message: "SDK Not Enabled")
             return
@@ -289,7 +290,7 @@ class AppTroveSDKInstance {
         if (!isInstallTracked()) {
             if isInitialized {
                 pendingEventsLock.lock()
-                pendingEvents.append(event)
+                pendingEvents.append((event: event, eventTime: eventTime))
                 pendingEventsLock.unlock()
                 // Install request may have finished while queueing; flush so nothing is stranded
                 deferredDeeplinkLock.lock()
@@ -312,6 +313,8 @@ class AppTroveSDKInstance {
         wrk.customerName = customerName
         wrk.customerPhone = customerPhone
         wrk.eventObj = event
+        // Moment trackEvent() was called, with microseconds.
+        wrk.createdAt = Utils.formatTimeMicros(date: eventTime)
         wrk.dob = dob
         wrk.gender = gender
         DispatchQueue.global().async {
